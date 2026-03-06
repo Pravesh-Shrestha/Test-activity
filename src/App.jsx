@@ -12,7 +12,7 @@ import { cn } from './lib/utils';
 import './index.css';
 
 const BRUNO_IMG = import.meta.env.BASE_URL + 'bruno.png';
-const BUILD_ID = '2026-03-06-ui-refresh-2';
+const BUILD_ID = '2026-03-06-ui-refresh-3';
 
 const FloatingHearts = () => {
   const hearts = useMemo(
@@ -242,6 +242,7 @@ function App() {
               animate={{ y: 0 }}
               transition={{ type: 'spring', stiffness: 80 }}
               className="w-full max-w-lg rounded-3xl border border-rose-300/30 bg-[#1a0a10] p-6 md:p-10 shadow-2xl"
+              whileHover={{ y: -3, boxShadow: '0 22px 40px rgba(0,0,0,0.35)' }}
             >
               <h1 className="text-3xl md:text-5xl font-serif font-bold mb-3 text-white">
                 {config?.siteTitle || 'Birthday Magic'}
@@ -262,6 +263,8 @@ function App() {
                 <motion.button
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.97 }}
+                  animate={{ x: [0, -1.5, 1.5, -1, 1, 0] }}
+                  transition={{ duration: 0.35, repeat: Infinity, repeatDelay: 2.4 }}
                   onClick={() => handleStart(name)}
                   className="w-full rounded-2xl bg-gradient-to-r from-red-700 via-rose-600 to-red-700 px-7 py-4 text-white font-bold text-lg shadow-lg flex items-center justify-center gap-2"
                 >
@@ -306,7 +309,10 @@ function App() {
             exit={{ opacity: 0, y: -30 }}
             className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-10"
           >
-            <div className="w-full max-w-2xl rounded-3xl border border-rose-300/25 bg-[#1a0a10] p-6 md:p-10 shadow-2xl">
+            <motion.div
+              className="w-full max-w-2xl rounded-3xl border border-rose-300/25 bg-[#1a0a10] p-6 md:p-10 shadow-2xl"
+              whileHover={{ y: -2, boxShadow: '0 18px 35px rgba(0,0,0,0.35)' }}
+            >
               <h2 className="text-4xl md:text-6xl font-serif text-white mb-6">Make a Wish</h2>
               <p className="text-rose-100/90 text-lg md:text-2xl italic mb-10">
                 Close your eyes and make a wish that matters.
@@ -319,7 +325,7 @@ function App() {
               >
                 I Made My Wish
               </motion.button>
-            </div>
+            </motion.div>
           </motion.div>
         )}
 
@@ -334,6 +340,9 @@ function App() {
             <h2 className="text-2xl md:text-4xl font-serif text-center text-rose-100 mb-4 md:mb-6">
               Blow Candles, Then Cut The Cake
             </h2>
+            <p className="text-rose-200 text-sm md:text-base mb-5 md:mb-7 text-center max-w-xl">
+              First blow the candles. Then cut the cake to unlock the next wish above.
+            </p>
             <Cake onCut={handleCakeDone} />
           </motion.div>
         )}

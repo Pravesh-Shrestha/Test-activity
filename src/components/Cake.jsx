@@ -181,8 +181,11 @@ export function Cake({ onCut }) {
             <FrostingDrip left={45} height={14} />
             <FrostingDrip left={62} height={28} />
             <FrostingDrip left={80} height={20} />
-            <div className='absolute bottom-1 left-1/2 -translate-x-1/2 flex gap-3 text-base'>
-              <span>??</span><span>??</span><span>??</span>
+            <div className='absolute bottom-1 left-1/2 -translate-x-1/2 flex gap-1'>
+              <div className='w-2 h-2 rounded-full bg-red-300' />
+              <div className='w-2 h-2 rounded-full bg-amber-300' />
+              <div className='w-2 h-2 rounded-full bg-rose-400' />
+              <div className='w-2 h-2 rounded-full bg-pink-200' />
             </div>
           </div>
 
@@ -218,9 +221,13 @@ export function Cake({ onCut }) {
               animate={{ x: 160, y: 40, opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.8, ease: 'easeInOut' }}
-              className='absolute top-10 left-1/2 -translate-x-1/2 text-3xl'
+              className='absolute top-10 left-1/2 -translate-x-1/2'
             >
-              ??
+              <svg width='70' height='20' viewBox='0 0 70 20'>
+                <rect x='4' y='7' width='14' height='6' rx='2' fill='#374151' />
+                <rect x='18' y='8' width='34' height='4' rx='2' fill='#cbd5e1' />
+                <polygon points='52,8 66,10 52,12' fill='#e2e8f0' />
+              </svg>
             </motion.div>
           )}
         </AnimatePresence>
@@ -233,8 +240,20 @@ export function Cake({ onCut }) {
                 animate={{ height: 140, opacity: 1 }}
                 className='absolute top-14 left-1/2 -translate-x-1/2 w-[3px] bg-red-600/80 rounded-full'
               />
-              <motion.div initial={{ opacity: 0, y: -5, x: 0 }} animate={{ opacity: 1, y: 0, x: -14 }} className='absolute top-44 left-[31%] text-2xl'>??</motion.div>
-              <motion.div initial={{ opacity: 0, y: -5, x: 0 }} animate={{ opacity: 1, y: 0, x: 14 }} className='absolute top-44 right-[31%] text-2xl'>??</motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: -5, x: 0 }}
+                animate={{ opacity: 1, y: 0, x: -14 }}
+                className='absolute top-44 left-[29%] w-10 h-8 rounded-md bg-gradient-to-br from-rose-200 to-rose-300 border border-rose-400/70'
+              >
+                <div className='absolute top-0 left-0 right-0 h-2 rounded-t-md bg-white/90' />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: -5, x: 0 }}
+                animate={{ opacity: 1, y: 0, x: 14 }}
+                className='absolute top-44 right-[29%] w-10 h-8 rounded-md bg-gradient-to-br from-rose-200 to-rose-300 border border-rose-400/70'
+              >
+                <div className='absolute top-0 left-0 right-0 h-2 rounded-t-md bg-white/90' />
+              </motion.div>
             </>
           )}
         </AnimatePresence>
@@ -248,7 +267,7 @@ export function Cake({ onCut }) {
               transition={{ duration: 2, repeat: Infinity }}
               className='inline-flex items-center gap-2 bg-black/50 px-5 py-3 rounded-full border border-rose-300/30'
             >
-              <span className='text-xl'>??</span>
+              <span className='text-xs font-bold tracking-wide px-2 py-0.5 rounded bg-rose-200 text-rose-900'>MIC</span>
               <span className='text-rose-100 font-semibold text-sm md:text-base'>Blow into your mic to blow the candles.</span>
             </motion.div>
           </motion.div>
@@ -258,6 +277,14 @@ export function Cake({ onCut }) {
       <AnimatePresence>
         {allBlown && (
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className='mt-6 text-center space-y-4'>
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: [0, -3, 0] }}
+              transition={{ duration: 1.2, repeat: Infinity }}
+              className='text-sm md:text-base text-rose-200/95'
+            >
+              Next surprise appears above after the cut.
+            </motion.p>
             <motion.p className='text-xl md:text-3xl font-serif text-rose-100 font-bold' animate={{ y: [0, -4, 0] }} transition={{ duration: 2, repeat: Infinity }}>
               Candles are out. Time to cut the cake!
             </motion.p>
@@ -266,6 +293,8 @@ export function Cake({ onCut }) {
               onClick={handleCutCake}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
+              animate={{ x: isCutting ? 0 : [0, -2, 2, -1, 1, 0] }}
+              transition={{ duration: 0.4, repeat: isCutting ? 0 : Infinity, repeatDelay: 1.8 }}
               disabled={isCutting}
               className='px-6 py-3 rounded-full bg-gradient-to-r from-red-600 via-rose-500 to-red-700 text-white font-bold shadow-lg disabled:opacity-70'
             >
