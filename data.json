@@ -1,36 +1,20 @@
 {
-  "site": {
-    "title": "Celebration Studio",
-    "guideName": "Bruno",
-    "signature": "FROM PRAVESH"
-  },
-  "texts": {
-    "nameTitle": "Let's Build Your Birthday Moment",
-    "nameSubtitle": "Enter your name and I will prepare a magical celebration with cake, roses, and a surprise letter.",
-    "wishSubtitle": "May your day be filled with laughter, roses, and sweet memories.",
-    "cakeTitle": "Cut The Signature Cake",
-    "cakeSubtitle": "Move your mouse over the knife and click on cake area to cut.",
-    "cakeInstruction": "Click the cake area once to make a perfect cut.",
-    "letterTitle": "A Message For You"
-  },
+  "siteTitle": "A Magical Birthday",
   "guideMessages": {
-    "intro": "Woof! I am Bruno the golden retriever. I will guide you through this celebration.",
-    "nameScreen": "Enter your name so I can personalize everything for you.",
-    "wishScreen": "Tap Cut the Cake. The cake, candles and roses are ready.",
-    "cakeScreen": "Move your mouse to control the knife and click once to cut.",
-    "letterScreen": "Enjoy your letter and bouquet from Pravesh."
+    "intro": "Woof! Im Bruno. I have a heartfelt surprise for you.",
+    "nameScreen": "Lets personalize this beautiful moment.",
+    "wishScreen": "Close your eyes... make a wish as pure as your heart.",
+    "cakeScreen": "A cake baked with love! Tap the candles to blow them out.",
+    "letterScreen": "I wrote this letter just for you. ??"
   },
   "letterTemplate": [
-    "Dear {name},",
-    "You are truly special, and your smile brings warmth to everyone around you.",
-    "Keep believing in your dreams because your strength, heart, and spirit are powerful.",
-    "May this year bring you peace, courage, beautiful memories, and endless happiness.",
-    "Happy Birthday, {name}. Keep shining and keep growing."
-  ],
-  "effects": {
-    "nameRoses": 34,
-    "cakeRoses": 22,
-    "letterRoses": 16,
-    "letterConfettiCount": 1
-  }
+    "My Dearest {name},",
+    "On this beautiful day, I want to remind you of how truly special you are.",
+    "Like a rose in full bloom, your presence adds color and fragrance to the world.",
+    "May your year be filled with laughter that makes your cheeks hurt,",
+    "Dreams that feel almost too big to be true,",
+    "And love that surrounds you like a warm embrace.",
+    "Happy Birthday, beautiful soul.",
+    "Forever cheering for you,"
+  ]
 }
