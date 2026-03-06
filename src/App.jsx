@@ -12,7 +12,7 @@ import { cn } from './lib/utils';
 import './index.css';
 
 const BRUNO_IMG = import.meta.env.BASE_URL + 'bruno.png';
-const BUILD_ID = '2026-03-06-ui-refresh-4';
+const BUILD_ID = '2026-03-06-ui-refresh-5';
 
 const FloatingHearts = () => {
   const hearts = useMemo(
@@ -180,6 +180,23 @@ const CelebrationOverlay = ({ active, name }) => {
   );
 };
 
+const ScreenCurtain = ({ screen }) => (
+  <AnimatePresence mode="wait">
+    <motion.div
+      key={`curtain-${screen}`}
+      className="fixed inset-0 z-[32] pointer-events-none"
+      initial={{ x: '-120%' }}
+      animate={{ x: '120%' }}
+      transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+      style={{
+        background:
+          'linear-gradient(90deg, rgba(0,0,0,0), rgba(127,29,29,0.2), rgba(255,255,255,0.18), rgba(127,29,29,0.2), rgba(0,0,0,0))',
+        backdropFilter: 'blur(1px)',
+      }}
+    />
+  </AnimatePresence>
+);
+
 function App() {
   const [screen, setScreen] = useState('intro');
   const [config, setConfig] = useState(null);
@@ -268,6 +285,7 @@ function App() {
       <BorderBalloons />
       <PetalField count={40} />
       <CelebrationOverlay active={showCakeCelebration} name={name} />
+      <ScreenCurtain screen={screen} />
 
       <AnimatePresence mode="wait">
         {screen === 'intro' && (
