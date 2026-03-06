@@ -3,194 +3,160 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday!</title>
+  <title>Birthday Celebration</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Dancing+Script:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-  <!-- Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Nunito:wght@500;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
 
-  <!-- Effects layers -->
   <div class="petal-field" id="petalField" aria-hidden="true"></div>
   <div class="hearts-layer" id="heartsLayer" aria-hidden="true"></div>
 
-  <!-- Guide character + think cloud -->
-  <div class="guide" id="guide" aria-live="polite">
-    <div class="think-cloud" id="thinkCloud">Woof! I am Cocoa, your birthday guide. Enter your name to begin.</div>
+  <aside class="guide" id="guide" aria-live="polite">
+    <div class="think-cloud" id="thinkCloud">Woof! I am Bruno, your golden retriever guide.</div>
     <div class="guide-dog" aria-hidden="true">
-      <div class="dog-ear ear-l"></div>
-      <div class="dog-ear ear-r"></div>
+      <div class="dog-ear left"></div>
+      <div class="dog-ear right"></div>
       <div class="dog-head"></div>
-      <div class="dog-eye eye-l"></div>
-      <div class="dog-eye eye-r"></div>
+      <div class="dog-snout"></div>
+      <div class="dog-eye left"></div>
+      <div class="dog-eye right"></div>
       <div class="dog-nose"></div>
       <div class="dog-mouth"></div>
-      <div class="dog-blush blush-l"></div>
-      <div class="dog-blush blush-r"></div>
+      <div class="dog-tongue"></div>
       <div class="dog-body"></div>
       <div class="dog-collar"></div>
       <div class="dog-tag"></div>
-      <div class="dog-paw paw-l"></div>
-      <div class="dog-paw paw-r"></div>
+      <div class="dog-paw left"></div>
+      <div class="dog-paw right"></div>
       <div class="dog-tail"></div>
     </div>
-  </div>
+  </aside>
 
-  <!-- ═══════════════════════════════════
-       SCREEN 1 — Name Entry
-       ═══════════════════════════════════ -->
   <section class="screen name-screen active" id="nameScreen">
-    <div class="name-screen__inner">
-      <div class="big-rose-wrap">
-        <div class="big-rose"></div>
-        <div class="big-rose r2"></div>
-        <div class="big-rose r3"></div>
-      </div>
-      <h1 class="name-screen__title">Hey there! <i class="fa-solid fa-face-smile-hearts"></i></h1>
-      <p class="name-screen__sub">Before we begin, what's your name?</p>
+    <div class="card intro-card">
+      <p class="eyebrow"><i class="fa-solid fa-sparkles"></i> Celebration Studio</p>
+      <h1>Let's Build Your Birthday Moment</h1>
+      <p class="sub">Enter your name and I will prepare a magical celebration with cake, roses, and a surprise letter.</p>
       <div class="name-form">
-        <input type="text" id="nameInput" class="name-input" placeholder="Enter your name…" maxlength="40" autocomplete="off" />
-        <button class="btn btn--rose" id="nameSubmit"><i class="fa-solid fa-arrow-right"></i> Let's Go!</button>
+        <input id="nameInput" class="name-input" type="text" maxlength="40" placeholder="Your beautiful name" autocomplete="off" />
+        <button id="nameSubmit" class="btn btn-rose"><i class="fa-solid fa-arrow-right"></i> Start</button>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════
-       SCREEN 2 — Birthday Wish
-       ═══════════════════════════════════ -->
   <section class="screen wish-screen" id="wishScreen">
-    <div class="wish-screen__inner">
-      <div class="rose-shower-area">
-        <div class="deco-rose tl"></div>
-        <div class="deco-rose tr"></div>
-        <div class="deco-rose bl"></div>
-        <div class="deco-rose br"></div>
+    <div class="card wish-card">
+      <div class="rose-corners" aria-hidden="true">
+        <span class="corner-rose tl"></span>
+        <span class="corner-rose tr"></span>
+        <span class="corner-rose bl"></span>
+        <span class="corner-rose br"></span>
       </div>
-      <p class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> A Special Day</p>
-      <h1 class="wish-title" id="wishTitle">Happy Birthday!</h1>
-      <p class="wish-sub" id="wishSub">Wishing you the most amazing year ahead!</p>
-      <button class="btn btn--gold" id="goToCake"><i class="fa-solid fa-cake-candles"></i> Time to Cut the Cake!</button>
+      <p class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> Special Greeting</p>
+      <h1 id="wishTitle">Happy Birthday!</h1>
+      <p id="wishSub" class="sub">Wishing you joy and beautiful memories.</p>
+      <button id="goToCake" class="btn btn-gold"><i class="fa-solid fa-cake-candles"></i> Cut the Cake</button>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════
-       SCREEN 3 — Cake Cutting
-       ═══════════════════════════════════ -->
   <section class="screen cake-screen" id="cakeScreen">
-    <div class="cake-screen__inner">
-      <p class="eyebrow"><i class="fa-solid fa-compass-drafting"></i> Architect Cake Studio</p>
-      <h2 class="cake-heading">Blueprint ready. Move your knife and cut the design cake!</h2>
+    <div class="card cake-card">
+      <p class="eyebrow"><i class="fa-solid fa-compass-drafting"></i> Architect Theme Cake</p>
+      <h2>Cut The Signature Cake</h2>
+      <p class="sub mini">Move your mouse over the knife and click on cake area to cut.</p>
 
       <div class="cake-area" id="cakeArea">
-        <div class="draft-grid" aria-hidden="true"></div>
-        <div class="measure-tape m1" aria-hidden="true"></div>
-        <div class="measure-tape m2" aria-hidden="true"></div>
+        <div class="blueprint-lines" aria-hidden="true"></div>
 
-        <!-- Candles -->
         <div class="candles-row">
-          <div class="candle"><div class="flame" id="flame1"></div></div>
-          <div class="candle"><div class="flame" id="flame2"></div></div>
-          <div class="candle"><div class="flame" id="flame3"></div></div>
-          <div class="candle"><div class="flame" id="flame4"></div></div>
-          <div class="candle"><div class="flame" id="flame5"></div></div>
+          <div class="candle"><div class="wick"></div><div class="flame" id="flame1"></div></div>
+          <div class="candle"><div class="wick"></div><div class="flame" id="flame2"></div></div>
+          <div class="candle"><div class="wick"></div><div class="flame" id="flame3"></div></div>
+          <div class="candle"><div class="wick"></div><div class="flame" id="flame4"></div></div>
+          <div class="candle"><div class="wick"></div><div class="flame" id="flame5"></div></div>
         </div>
-        <!-- 3-tier cake -->
+
         <div class="cake3d">
-          <div class="cake-tier tier-top">
-            <div class="tier-side"></div>
-            <div class="tier-top-face"></div>
-            <div class="tier-drip"></div>
-            <div class="rose-deco rd1"></div>
-            <div class="rose-deco rd2"></div>
+          <div class="tier tier-top">
+            <div class="tier-face"></div>
+            <div class="tier-icing"></div>
+            <span class="rose-deco r1"></span>
+            <span class="rose-deco r2"></span>
           </div>
-          <div class="cake-tier tier-mid">
-            <div class="tier-side"></div>
-            <div class="tier-top-face"></div>
-            <div class="tier-drip"></div>
-            <div class="rose-deco rd3"></div>
-            <div class="rose-deco rd4"></div>
-            <div class="rose-deco rd5"></div>
+          <div class="tier tier-mid">
+            <div class="tier-face"></div>
+            <div class="tier-icing"></div>
+            <span class="rose-deco r3"></span>
+            <span class="rose-deco r4"></span>
+            <span class="rose-deco r5"></span>
           </div>
-          <div class="cake-tier tier-base">
-            <div class="tier-side"></div>
-            <div class="tier-top-face"></div>
-            <div class="tier-drip"></div>
-            <div class="rose-deco rd6"></div>
-            <div class="rose-deco rd7"></div>
-            <div class="rose-deco rd8"></div>
-            <div class="rose-deco rd9"></div>
+          <div class="tier tier-bottom">
+            <div class="tier-face"></div>
+            <div class="tier-icing"></div>
+            <span class="rose-deco r6"></span>
+            <span class="rose-deco r7"></span>
+            <span class="rose-deco r8"></span>
+            <span class="rose-deco r9"></span>
           </div>
-          <div class="cake-plate"></div>
+          <div class="cake-base"></div>
         </div>
 
-        <!-- Knife (follows mouse) -->
         <div class="knife" id="knife">
-          <div class="knife-blade"></div>
           <div class="knife-handle"></div>
+          <div class="knife-blade"></div>
         </div>
 
-        <!-- Cut line -->
         <div class="cut-line" id="cutLine"></div>
 
-        <!-- Slice (appears after cut) -->
         <div class="cake-slice" id="cakeSlice">
-          <div class="slice-layer sl1"></div>
-          <div class="slice-layer sl2"></div>
-          <div class="slice-layer sl3"></div>
-          <div class="slice-frosting"></div>
+          <div class="slice sl-top"></div>
+          <div class="slice sl-mid"></div>
+          <div class="slice sl-bottom"></div>
+          <div class="slice-cream"></div>
         </div>
       </div>
 
-      <p class="cake-instruction" id="cakeInstruction">Move your mouse over the cake and click to cut!</p>
+      <p class="cake-instruction" id="cakeInstruction">Click the cake area once to make a perfect cut.</p>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════
-       SCREEN 4 — Birthday Letter
-       ═══════════════════════════════════ -->
   <section class="screen letter-screen" id="letterScreen">
-    <div class="letter-screen__inner">
-      <div class="letter-card" id="letterCard">
-        <div class="letter-rose-top"></div>
-        <h2 class="letter-heading">A Letter For You <i class="fa-solid fa-heart"></i></h2>
-        <div class="letter-body" id="letterBody">
-          <!-- Filled by JS with the person's name -->
-        </div>
-        <div class="letter-signature">
-          <p>With all my love,</p>
-          <h3>FROM PRAVESH</h3>
-          <div class="sig-rose"></div>
-        </div>
+    <div class="card letter-card" id="letterCard">
+      <span class="letter-rose-top" aria-hidden="true"></span>
+      <h2>A Message For You</h2>
+      <div class="letter-body" id="letterBody"></div>
+      <div class="letter-signature">
+        <p>With warmth and wishes,</p>
+        <h3>FROM PRAVESH</h3>
       </div>
-
-      <div class="bouquet-wrap" id="bouquetWrap" aria-live="polite">
-        <p class="bouquet-title">A Big Bouquet For You</p>
-        <div class="bouquet" id="bouquet">
-          <div class="big-rose-bq b1"></div>
-          <div class="big-rose-bq b2"></div>
-          <div class="big-rose-bq b3"></div>
-          <div class="big-rose-bq b4"></div>
-          <div class="big-rose-bq b5"></div>
-          <div class="big-rose-bq b6"></div>
-          <div class="bouquet-wrap-ribbon"></div>
-        </div>
-        <p class="bouquet-note">From Pravesh</p>
-      </div>
-
-      <button class="btn btn--rose" id="restartBtn"><i class="fa-solid fa-rotate-right"></i> Celebrate Again</button>
     </div>
+
+    <div class="bouquet-wrap" id="bouquetWrap" aria-live="polite">
+      <p class="bouquet-title">A Bouquet Of Roses For You</p>
+      <div class="bouquet" id="bouquet">
+        <span class="big-rose-bq b1"></span>
+        <span class="big-rose-bq b2"></span>
+        <span class="big-rose-bq b3"></span>
+        <span class="big-rose-bq b4"></span>
+        <span class="big-rose-bq b5"></span>
+        <span class="big-rose-bq b6"></span>
+        <span class="bouquet-ribbon"></span>
+      </div>
+      <p class="bouquet-note">From Pravesh</p>
+    </div>
+
+    <button id="restartBtn" class="btn btn-rose"><i class="fa-solid fa-rotate-right"></i> Celebrate Again</button>
   </section>
 
-  <!-- Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
