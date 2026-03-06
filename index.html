@@ -23,20 +23,23 @@
 
   <!-- Guide character + think cloud -->
   <div class="guide" id="guide" aria-live="polite">
-    <div class="think-cloud" id="thinkCloud">Hi! I am your birthday guide. Enter your name to begin.</div>
-    <div class="guide-guy" aria-hidden="true">
-      <div class="guy-helmet"></div>
-      <div class="guy-head"></div>
-      <div class="guy-eye eye-l"></div>
-      <div class="guy-eye eye-r"></div>
-      <div class="guy-blush blush-l"></div>
-      <div class="guy-blush blush-r"></div>
-      <div class="guy-smile"></div>
-      <div class="guy-body"></div>
-      <div class="guy-arm arm-l"></div>
-      <div class="guy-arm arm-r"></div>
-      <div class="guy-leg leg-l"></div>
-      <div class="guy-leg leg-r"></div>
+    <div class="think-cloud" id="thinkCloud">Woof! I am Cocoa, your birthday guide. Enter your name to begin.</div>
+    <div class="guide-dog" aria-hidden="true">
+      <div class="dog-ear ear-l"></div>
+      <div class="dog-ear ear-r"></div>
+      <div class="dog-head"></div>
+      <div class="dog-eye eye-l"></div>
+      <div class="dog-eye eye-r"></div>
+      <div class="dog-nose"></div>
+      <div class="dog-mouth"></div>
+      <div class="dog-blush blush-l"></div>
+      <div class="dog-blush blush-r"></div>
+      <div class="dog-body"></div>
+      <div class="dog-collar"></div>
+      <div class="dog-tag"></div>
+      <div class="dog-paw paw-l"></div>
+      <div class="dog-paw paw-r"></div>
+      <div class="dog-tail"></div>
     </div>
   </div>
 
@@ -46,9 +49,9 @@
   <section class="screen name-screen active" id="nameScreen">
     <div class="name-screen__inner">
       <div class="big-rose-wrap">
-        <div class="big-rose">🌹</div>
-        <div class="big-rose r2">🌹</div>
-        <div class="big-rose r3">🌹</div>
+        <div class="big-rose"></div>
+        <div class="big-rose r2"></div>
+        <div class="big-rose r3"></div>
       </div>
       <h1 class="name-screen__title">Hey there! <i class="fa-solid fa-face-smile-hearts"></i></h1>
       <p class="name-screen__sub">Before we begin, what's your name?</p>
@@ -65,10 +68,10 @@
   <section class="screen wish-screen" id="wishScreen">
     <div class="wish-screen__inner">
       <div class="rose-shower-area">
-        <div class="deco-rose tl">🌹</div>
-        <div class="deco-rose tr">🌹</div>
-        <div class="deco-rose bl">🌹</div>
-        <div class="deco-rose br">🌹</div>
+        <div class="deco-rose tl"></div>
+        <div class="deco-rose tr"></div>
+        <div class="deco-rose bl"></div>
+        <div class="deco-rose br"></div>
       </div>
       <p class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> A Special Day</p>
       <h1 class="wish-title" id="wishTitle">Happy Birthday!</h1>
@@ -104,25 +107,25 @@
             <div class="tier-side"></div>
             <div class="tier-top-face"></div>
             <div class="tier-drip"></div>
-            <div class="rose-deco rd1">🌹</div>
-            <div class="rose-deco rd2">🌹</div>
+            <div class="rose-deco rd1"></div>
+            <div class="rose-deco rd2"></div>
           </div>
           <div class="cake-tier tier-mid">
             <div class="tier-side"></div>
             <div class="tier-top-face"></div>
             <div class="tier-drip"></div>
-            <div class="rose-deco rd3">🌹</div>
-            <div class="rose-deco rd4">🌹</div>
-            <div class="rose-deco rd5">🌹</div>
+            <div class="rose-deco rd3"></div>
+            <div class="rose-deco rd4"></div>
+            <div class="rose-deco rd5"></div>
           </div>
           <div class="cake-tier tier-base">
             <div class="tier-side"></div>
             <div class="tier-top-face"></div>
             <div class="tier-drip"></div>
-            <div class="rose-deco rd6">🌹</div>
-            <div class="rose-deco rd7">🌹</div>
-            <div class="rose-deco rd8">🌹</div>
-            <div class="rose-deco rd9">🌹</div>
+            <div class="rose-deco rd6"></div>
+            <div class="rose-deco rd7"></div>
+            <div class="rose-deco rd8"></div>
+            <div class="rose-deco rd9"></div>
           </div>
           <div class="cake-plate"></div>
         </div>
@@ -170,12 +173,12 @@
       <div class="bouquet-wrap" id="bouquetWrap" aria-live="polite">
         <p class="bouquet-title">A Big Bouquet For You</p>
         <div class="bouquet" id="bouquet">
-          <div class="big-rose-bq b1">🌹</div>
-          <div class="big-rose-bq b2">🌹</div>
-          <div class="big-rose-bq b3">🌹</div>
-          <div class="big-rose-bq b4">🌹</div>
-          <div class="big-rose-bq b5">🌹</div>
-          <div class="big-rose-bq b6">🌹</div>
+          <div class="big-rose-bq b1"></div>
+          <div class="big-rose-bq b2"></div>
+          <div class="big-rose-bq b3"></div>
+          <div class="big-rose-bq b4"></div>
+          <div class="big-rose-bq b5"></div>
+          <div class="big-rose-bq b6"></div>
           <div class="bouquet-wrap-ribbon"></div>
         </div>
         <p class="bouquet-note">From Pravesh</p>
@@ -187,6 +190,7 @@
 
   <!-- Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>

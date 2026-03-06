@@ -23,6 +23,7 @@
   var restartBtn   = document.getElementById('restartBtn');
   var bouquetWrap  = document.getElementById('bouquetWrap');
   var thinkCloud   = document.getElementById('thinkCloud');
+  var guide        = document.getElementById('guide');
 
   var petalField   = document.getElementById('petalField');
   var heartsLayer  = document.getElementById('heartsLayer');
@@ -46,14 +47,25 @@
 
   function updateGuideForScreen(screenId) {
     if (screenId === 'nameScreen') {
-      setGuideText('Hi cutie! I am your birthday guide. Enter your name to begin.');
+      setGuideText('Woof! I am Cocoa the guide dog. Enter your name to start the birthday tour.');
     } else if (screenId === 'wishScreen') {
-      setGuideText('Nice! Tap "Time to Cut the Cake" to open the architect cake studio.');
+      setGuideText('Yay! Tap "Time to Cut the Cake" and I will guide you to the cake studio.');
     } else if (screenId === 'cakeScreen') {
-      setGuideText('Move your mouse on the blueprint cake and click once to cut it.');
+      setGuideText('Careful cut: move your mouse over the cake and click once. The candles are glowing!');
     } else if (screenId === 'letterScreen') {
       setGuideText('Read your letter, then enjoy a big bouquet from Pravesh.');
     }
+  }
+
+  function introGuide() {
+    if (!guide || typeof gsap === 'undefined') return;
+    gsap.fromTo('#guide',
+      { x: -120, opacity: 0, scale: 0.9 },
+      { x: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'back.out(1.4)' }
+    );
+    setTimeout(function () {
+      setGuideText('Woof! I am Cocoa. I will help you navigate every birthday step.');
+    }, 1200);
   }
 
   // ════════════════════════════════════
@@ -223,11 +235,9 @@
   // ════════════════════════════════════
   function dropRoses(count) {
     if (!petalField) return;
-    var roseEmojis = ['🌹'];
     for (var i = 0; i < count; i++) {
       var rose = document.createElement('span');
       rose.className = 'falling-rose';
-      rose.textContent = roseEmojis[Math.floor(Math.random() * roseEmojis.length)];
       rose.style.left = Math.random() * 100 + '%';
       rose.style.top = '-40px';
       rose.style.animationDelay = Math.random() * 2.5 + 's';
@@ -282,6 +292,24 @@
   }
   setInterval(spawnHeart, 1400);
 
+  // Candles: subtle realistic movement using Anime.js if available.
+  function animateFlames() {
+    if (typeof anime === 'undefined') return;
+    document.querySelectorAll('.flame').forEach(function (flame) {
+      anime({
+        targets: flame,
+        scaleX: [0.95, 1.12],
+        scaleY: [0.9, 1.18],
+        rotate: [-2, 3],
+        translateY: [0, -2],
+        direction: 'alternate',
+        easing: 'easeInOutSine',
+        duration: 420 + Math.random() * 500,
+        loop: true
+      });
+    });
+  }
+
   // ════════════════════════════════════
   // EFFECTS — Cursor sparkles
   // ════════════════════════════════════
@@ -306,5 +334,7 @@
   // Focus name input on start
   nameInput.focus();
   updateGuideForScreen('nameScreen');
+  introGuide();
+  animateFlames();
 
 })();
