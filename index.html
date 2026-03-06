@@ -13,182 +13,143 @@
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <!-- AOS scroll animations -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ── Particle background (tsParticles) ── -->
-  <div id="tsparticles"></div>
-
-  <!-- ── Floating hearts layer ── -->
+  <!-- Effects layers -->
+  <div class="petal-field" id="petalField" aria-hidden="true"></div>
   <div class="hearts-layer" id="heartsLayer" aria-hidden="true"></div>
 
-  <!-- ── Petal shower layer ── -->
-  <div class="petal-field" id="petalField" aria-hidden="true"></div>
-
-  <!-- ── Loader splash ── -->
-  <div class="loader" id="loader">
-    <div class="loader__rose">
-      <svg viewBox="0 0 100 100" class="loader__svg">
-        <circle cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="264" />
-      </svg>
-    </div>
-    <p class="loader__text">Preparing something special…</p>
-  </div>
-
-  <!-- ══════════════════════════════════════ -->
-  <!--                HERO                    -->
-  <!-- ══════════════════════════════════════ -->
-  <header class="hero" id="hero">
-    <div class="hero__text" data-aos="fade-right" data-aos-duration="1200">
-      <p class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> A birthday wish</p>
-      <h1 class="glitch" data-text="Happy Birthday!">Happy Birthday!</h1>
-      <p class="hero__sub">To the most wonderful person — roses, cake, and all the love in the world.</p>
-      <div class="cta-row">
-        <button class="btn btn--rose" id="cutButton"><i class="fa-solid fa-cake-candles"></i> Cut the Cake</button>
-        <button class="btn btn--ghost" id="petalButton"><i class="fa-solid fa-fan"></i> Rose Shower</button>
-        <button class="btn btn--gold" id="confettiButton"><i class="fa-solid fa-party-horn fa-beat-fade"></i> Confetti!</button>
+  <!-- ═══════════════════════════════════
+       SCREEN 1 — Name Entry
+       ═══════════════════════════════════ -->
+  <section class="screen name-screen active" id="nameScreen">
+    <div class="name-screen__inner">
+      <div class="big-rose-wrap">
+        <div class="big-rose"></div>
+        <div class="big-rose r2"></div>
+        <div class="big-rose r3"></div>
       </div>
-    </div>
-    <div class="hero__canvas" data-aos="zoom-in" data-aos-delay="400">
-      <canvas id="cakeCanvas"></canvas>
-      <p class="canvas-hint">Drag to rotate the cake</p>
-    </div>
-  </header>
-
-  <!-- ══════════════════════════════════════ -->
-  <!--           ROSE GARDEN SECTION          -->
-  <!-- ══════════════════════════════════════ -->
-  <section class="rose-garden" id="roseGarden">
-    <div class="section-header" data-aos="fade-up">
-      <p class="eyebrow"><i class="fa-solid fa-seedling"></i> Rose Garden</p>
-      <h2>A Garden of Roses, Just for You</h2>
-    </div>
-    <div class="rose-row">
-      <div class="rose-card" data-aos="fade-up" data-aos-delay="0">
-        <div class="rose-3d">
-          <div class="rose-bloom r1"></div>
-          <div class="rose-stem-el"></div>
-          <div class="rose-leaf left"></div>
-          <div class="rose-leaf right"></div>
-        </div>
-        <p>Red Rose — <em>I love you</em></p>
-      </div>
-      <div class="rose-card" data-aos="fade-up" data-aos-delay="150">
-        <div class="rose-3d">
-          <div class="rose-bloom r2"></div>
-          <div class="rose-stem-el"></div>
-          <div class="rose-leaf left"></div>
-          <div class="rose-leaf right"></div>
-        </div>
-        <p>Pink Rose — <em>Grace & gratitude</em></p>
-      </div>
-      <div class="rose-card" data-aos="fade-up" data-aos-delay="300">
-        <div class="rose-3d">
-          <div class="rose-bloom r3"></div>
-          <div class="rose-stem-el"></div>
-          <div class="rose-leaf left"></div>
-          <div class="rose-leaf right"></div>
-        </div>
-        <p>White Rose — <em>Pure joy</em></p>
-      </div>
-      <div class="rose-card" data-aos="fade-up" data-aos-delay="450">
-        <div class="rose-3d">
-          <div class="rose-bloom r4"></div>
-          <div class="rose-stem-el"></div>
-          <div class="rose-leaf left"></div>
-          <div class="rose-leaf right"></div>
-        </div>
-        <p>Gold Rose — <em>Achievement & pride</em></p>
+      <h1 class="name-screen__title">Hey there! <i class="fa-solid fa-face-smile-hearts"></i></h1>
+      <p class="name-screen__sub">Before we begin, what's your name?</p>
+      <div class="name-form">
+        <input type="text" id="nameInput" class="name-input" placeholder="Enter your name…" maxlength="40" autocomplete="off" />
+        <button class="btn btn--rose" id="nameSubmit"><i class="fa-solid fa-arrow-right"></i> Let's Go!</button>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════ -->
-  <!--           BIRTHDAY CARDS               -->
-  <!-- ══════════════════════════════════════ -->
-  <section class="cards-section">
-    <div class="section-header" data-aos="fade-up">
-      <p class="eyebrow"><i class="fa-solid fa-envelope-open-text"></i> Birthday Wishes</p>
-      <h2>Messages from the Heart</h2>
-    </div>
-    <div class="wish-grid">
-      <article class="wish-card" data-aos="flip-left" data-aos-delay="0" data-tilt>
-        <div class="wish-card__icon"><i class="fa-solid fa-heart"></i></div>
-        <h3>You're Amazing</h3>
-        <p>Every day you make the world brighter. Today we celebrate YOU.</p>
-      </article>
-      <article class="wish-card" data-aos="flip-left" data-aos-delay="200" data-tilt>
-        <div class="wish-card__icon"><i class="fa-solid fa-star"></i></div>
-        <h3>Shine Bright</h3>
-        <p>May this year bring you every star you've ever wished upon.</p>
-      </article>
-      <article class="wish-card" data-aos="flip-left" data-aos-delay="400" data-tilt>
-        <div class="wish-card__icon"><i class="fa-solid fa-champagne-glasses"></i></div>
-        <h3>Cheers to You</h3>
-        <p>Here's to laughter, adventure, and a year full of beautiful surprises.</p>
-      </article>
+  <!-- ═══════════════════════════════════
+       SCREEN 2 — Birthday Wish
+       ═══════════════════════════════════ -->
+  <section class="screen wish-screen" id="wishScreen">
+    <div class="wish-screen__inner">
+      <div class="rose-shower-area">
+        <div class="deco-rose tl"></div>
+        <div class="deco-rose tr"></div>
+        <div class="deco-rose bl"></div>
+        <div class="deco-rose br"></div>
+      </div>
+      <p class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> A Special Day</p>
+      <h1 class="wish-title" id="wishTitle">Happy Birthday!</h1>
+      <p class="wish-sub" id="wishSub">Wishing you the most amazing year ahead!</p>
+      <button class="btn btn--gold" id="goToCake"><i class="fa-solid fa-cake-candles"></i> Time to Cut the Cake!</button>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════ -->
-  <!--          INTERACTIVE MOMENTS           -->
-  <!-- ══════════════════════════════════════ -->
-  <section class="moments" id="moments">
-    <div class="section-header" data-aos="fade-up">
-      <p class="eyebrow"><i class="fa-solid fa-wand-sparkles"></i> Moments</p>
-      <h2>Make It Magical</h2>
-    </div>
-    <div class="moments-grid">
-      <div class="moment-tile" data-aos="fade-up" data-aos-delay="0">
-        <div class="moment-num">01</div>
-        <h3>Blow the Candles</h3>
-        <p>Click the cake and watch the candles flicker out.</p>
-        <button class="btn btn--mini" id="blowCandles"><i class="fa-solid fa-wind"></i> Blow!</button>
+  <!-- ═══════════════════════════════════
+       SCREEN 3 — Cake Cutting
+       ═══════════════════════════════════ -->
+  <section class="screen cake-screen" id="cakeScreen">
+    <div class="cake-screen__inner">
+      <p class="eyebrow"><i class="fa-solid fa-cake-candles"></i> Your Cake Awaits</p>
+      <h2 class="cake-heading">Drag the knife across the cake to cut it!</h2>
+
+      <div class="cake-area" id="cakeArea">
+        <!-- Candles -->
+        <div class="candles-row">
+          <div class="candle"><div class="flame" id="flame1"></div></div>
+          <div class="candle"><div class="flame" id="flame2"></div></div>
+          <div class="candle"><div class="flame" id="flame3"></div></div>
+          <div class="candle"><div class="flame" id="flame4"></div></div>
+          <div class="candle"><div class="flame" id="flame5"></div></div>
+        </div>
+        <!-- 3-tier cake -->
+        <div class="cake3d">
+          <div class="cake-tier tier-top">
+            <div class="tier-side"></div>
+            <div class="tier-top-face"></div>
+            <div class="tier-drip"></div>
+            <div class="rose-deco rd1"></div>
+            <div class="rose-deco rd2"></div>
+          </div>
+          <div class="cake-tier tier-mid">
+            <div class="tier-side"></div>
+            <div class="tier-top-face"></div>
+            <div class="tier-drip"></div>
+            <div class="rose-deco rd3"></div>
+            <div class="rose-deco rd4"></div>
+            <div class="rose-deco rd5"></div>
+          </div>
+          <div class="cake-tier tier-base">
+            <div class="tier-side"></div>
+            <div class="tier-top-face"></div>
+            <div class="tier-drip"></div>
+            <div class="rose-deco rd6"></div>
+            <div class="rose-deco rd7"></div>
+            <div class="rose-deco rd8"></div>
+            <div class="rose-deco rd9"></div>
+          </div>
+          <div class="cake-plate"></div>
+        </div>
+
+        <!-- Knife (follows mouse) -->
+        <div class="knife" id="knife">
+          <div class="knife-blade"></div>
+          <div class="knife-handle"></div>
+        </div>
+
+        <!-- Cut line -->
+        <div class="cut-line" id="cutLine"></div>
+
+        <!-- Slice (appears after cut) -->
+        <div class="cake-slice" id="cakeSlice">
+          <div class="slice-layer sl1"></div>
+          <div class="slice-layer sl2"></div>
+          <div class="slice-layer sl3"></div>
+          <div class="slice-frosting"></div>
+        </div>
       </div>
-      <div class="moment-tile" data-aos="fade-up" data-aos-delay="150">
-        <div class="moment-num">02</div>
-        <h3>Make a Wish</h3>
-        <p>Type your wish and seal it with rose petals.</p>
-        <input type="text" class="wish-input" id="wishInput" placeholder="Type your wish…" maxlength="120" />
-        <button class="btn btn--mini" id="sealWish"><i class="fa-solid fa-lock"></i> Seal it</button>
-        <div class="sealed-wish" id="sealedWish"></div>
-      </div>
-      <div class="moment-tile" data-aos="fade-up" data-aos-delay="300">
-        <div class="moment-num">03</div>
-        <h3>Rose Rain</h3>
-        <p>Unleash a storm of rose petals across the screen.</p>
-        <button class="btn btn--mini" id="roseRainBtn"><i class="fa-solid fa-cloud-rain"></i> Rain!</button>
-      </div>
+
+      <p class="cake-instruction" id="cakeInstruction">Move your mouse over the cake and click to cut!</p>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════ -->
-  <!--              FOOTER                    -->
-  <!-- ══════════════════════════════════════ -->
-  <footer class="footer" data-aos="fade-up">
-    <div class="footer__rose"><i class="fa-solid fa-heart"></i></div>
-    <p>Made with love & roses</p>
-    <p class="footer__year">2026</p>
-  </footer>
+  <!-- ═══════════════════════════════════
+       SCREEN 4 — Birthday Letter
+       ═══════════════════════════════════ -->
+  <section class="screen letter-screen" id="letterScreen">
+    <div class="letter-screen__inner">
+      <div class="letter-card" id="letterCard">
+        <div class="letter-rose-top"></div>
+        <h2 class="letter-heading">A Letter For You <i class="fa-solid fa-heart"></i></h2>
+        <div class="letter-body" id="letterBody">
+          <!-- Filled by JS with the person's name -->
+        </div>
+        <div class="letter-signature">
+          <p>With all my love,</p>
+          <h3>FROM PRAVESH</h3>
+          <div class="sig-rose"></div>
+        </div>
+      </div>
+      <button class="btn btn--rose" id="restartBtn"><i class="fa-solid fa-rotate-right"></i> Celebrate Again</button>
+    </div>
+  </section>
 
-  <!-- ── Libraries ── -->
-  <!-- Three.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <!-- GSAP + ScrollTrigger -->
+  <!-- Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <!-- tsParticles (rose petals & confetti) -->
   <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
-  <!-- AOS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <!-- Vanilla Tilt -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-
-  <!-- App -->
   <script src="script.js"></script>
 </body>
 </html>
