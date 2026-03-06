@@ -1,20 +1,20 @@
 {
-  "siteTitle": "A Magical Birthday",
+  "siteTitle": "Birthday Magic",
   "guideMessages": {
-    "intro": "Woof! Im Bruno. I have a heartfelt surprise for you.",
-    "nameScreen": "Lets personalize this beautiful moment.",
-    "wishScreen": "Close your eyes... make a wish as pure as your heart.",
-    "cakeScreen": "A cake baked with love! Tap the candles to blow them out.",
-    "letterScreen": "I wrote this letter just for you. ??"
+    "intro": "Woof! I'm Bruno. I have some magic to show you today.",
+    "greeting": "Let the celebration begin!",
+    "wishScreen": "The stars are listening... make a wish.",
+    "cakeScreen": "A cake made of dreams! Blow the candles and cut a slice.",
+    "letterScreen": "A letter from the heart, just for you. 💌"
   },
   "letterTemplate": [
-    "My Dearest {name},",
-    "On this beautiful day, I want to remind you of how truly special you are.",
-    "Like a rose in full bloom, your presence adds color and fragrance to the world.",
-    "May your year be filled with laughter that makes your cheeks hurt,",
-    "Dreams that feel almost too big to be true,",
-    "And love that surrounds you like a warm embrace.",
-    "Happy Birthday, beautiful soul.",
-    "Forever cheering for you,"
-  ]
+    "To the amazing {name},",
+    "On this special day, I want to take a moment to admire the incredible person you are becoming. Your strength, your kindness, and your light do not go unnoticed.",
+    "Life is a journey of blooming, and you are blossoming into something truly magnificent. Even on the days when the climb feels steep, remember that you have mountains of courage within you.",
+    "Don't ever let anyone dim your sparkle. You have a unique gift to offer the world, and this year is your canvas to paint it with bold, beautiful colors.",
+    "Keep chasing those dreams that set your soul on fire. You are capable of more than you know, and worthy of all the happiness in the universe.",
+    "Happy Birthday! Use this year to fly higher than ever before.",
+    "With endless admiration,"
+  ],
+  "signedBy": "Your Secret Developer"
 }

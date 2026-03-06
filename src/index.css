@@ -4,11 +4,38 @@
 
 @layer base {
   body {
-    @apply bg-pink-50 min-h-screen text-gray-800 font-sans overflow-hidden;
+    @apply bg-pink-50 min-h-screen text-gray-800 font-sans;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    @apply bg-pink-200 text-pink-900;
+  }
+
+  /* Smooth scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #fff0f3;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #fda4af;
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #fb7185;
   }
 }
 
-/* Custom animations if needed */
-.glow {
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+@layer utilities {
+  .glow {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.2);
+  }
+  .glow-pink {
+    box-shadow: 0 0 15px rgba(244, 63, 94, 0.3), 0 0 30px rgba(244, 63, 94, 0.1);
+  }
+  .text-shadow-soft {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  }
 }
