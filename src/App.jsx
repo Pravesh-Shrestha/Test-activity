@@ -12,6 +12,7 @@ import { cn } from './lib/utils';
 import './index.css';
 
 const BRUNO_IMG = import.meta.env.BASE_URL + 'bruno.png';
+const BUILD_ID = '2026-03-06-ui-refresh-1';
 
 const FloatingHearts = () => (
   <div className="fixed inset-0 pointer-events-none z-[2] overflow-hidden">
@@ -159,7 +160,7 @@ function App() {
   const handleLetterDone = () => setScreen('bouquet');
 
   return (
-    <div className="relative min-h-screen overflow-hidden text-gray-100 font-sans bg-[#120609] selection:bg-red-300/50">
+    <div data-build={BUILD_ID} className="relative min-h-screen overflow-hidden text-gray-100 font-sans bg-[#120609] selection:bg-red-300/50">
       <div className="fixed inset-0 -z-20">
         <div className="absolute inset-0 bg-gradient-to-br from-[#120507] via-[#350a16] to-[#050305]" />
         <div
