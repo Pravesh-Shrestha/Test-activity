@@ -21,6 +21,20 @@
   <div class="petal-field" id="petalField" aria-hidden="true"></div>
   <div class="hearts-layer" id="heartsLayer" aria-hidden="true"></div>
 
+  <!-- Guide character + think cloud -->
+  <div class="guide" id="guide" aria-live="polite">
+    <div class="think-cloud" id="thinkCloud">Hi! I am your birthday guide. Enter your name to begin.</div>
+    <div class="guide-guy" aria-hidden="true">
+      <div class="guy-helmet"></div>
+      <div class="guy-head"></div>
+      <div class="guy-body"></div>
+      <div class="guy-arm arm-l"></div>
+      <div class="guy-arm arm-r"></div>
+      <div class="guy-leg leg-l"></div>
+      <div class="guy-leg leg-r"></div>
+    </div>
+  </div>
+
   <!-- ═══════════════════════════════════
        SCREEN 1 — Name Entry
        ═══════════════════════════════════ -->
@@ -63,10 +77,14 @@
        ═══════════════════════════════════ -->
   <section class="screen cake-screen" id="cakeScreen">
     <div class="cake-screen__inner">
-      <p class="eyebrow"><i class="fa-solid fa-cake-candles"></i> Your Cake Awaits</p>
-      <h2 class="cake-heading">Drag the knife across the cake to cut it!</h2>
+      <p class="eyebrow"><i class="fa-solid fa-compass-drafting"></i> Architect Cake Studio</p>
+      <h2 class="cake-heading">Blueprint ready. Move your knife and cut the design cake!</h2>
 
       <div class="cake-area" id="cakeArea">
+        <div class="draft-grid" aria-hidden="true"></div>
+        <div class="measure-tape m1" aria-hidden="true"></div>
+        <div class="measure-tape m2" aria-hidden="true"></div>
+
         <!-- Candles -->
         <div class="candles-row">
           <div class="candle"><div class="flame" id="flame1"></div></div>
@@ -143,6 +161,21 @@
           <div class="sig-rose"></div>
         </div>
       </div>
+
+      <div class="bouquet-wrap" id="bouquetWrap" aria-live="polite">
+        <p class="bouquet-title">A Big Bouquet For You</p>
+        <div class="bouquet" id="bouquet">
+          <div class="big-rose-bq b1"></div>
+          <div class="big-rose-bq b2"></div>
+          <div class="big-rose-bq b3"></div>
+          <div class="big-rose-bq b4"></div>
+          <div class="big-rose-bq b5"></div>
+          <div class="big-rose-bq b6"></div>
+          <div class="bouquet-wrap-ribbon"></div>
+        </div>
+        <p class="bouquet-note">From Pravesh</p>
+      </div>
+
       <button class="btn btn--rose" id="restartBtn"><i class="fa-solid fa-rotate-right"></i> Celebrate Again</button>
     </div>
   </section>

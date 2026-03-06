@@ -21,6 +21,8 @@
 
   var letterBody   = document.getElementById('letterBody');
   var restartBtn   = document.getElementById('restartBtn');
+  var bouquetWrap  = document.getElementById('bouquetWrap');
+  var thinkCloud   = document.getElementById('thinkCloud');
 
   var petalField   = document.getElementById('petalField');
   var heartsLayer  = document.getElementById('heartsLayer');
@@ -34,6 +36,24 @@
       s.classList.remove('active');
     });
     target.classList.add('active');
+    updateGuideForScreen(target.id);
+  }
+
+  function setGuideText(message) {
+    if (!thinkCloud) return;
+    thinkCloud.textContent = message;
+  }
+
+  function updateGuideForScreen(screenId) {
+    if (screenId === 'nameScreen') {
+      setGuideText('Hi! I am your birthday guide. Enter your name to begin.');
+    } else if (screenId === 'wishScreen') {
+      setGuideText('Nice! Tap "Time to Cut the Cake" to open the architect cake studio.');
+    } else if (screenId === 'cakeScreen') {
+      setGuideText('Move your mouse on the blueprint cake and click once to cut it.');
+    } else if (screenId === 'letterScreen') {
+      setGuideText('Read your letter, then enjoy a big bouquet from Pravesh.');
+    }
   }
 
   // ════════════════════════════════════
@@ -75,6 +95,7 @@
     cakeCut = false;
     cutLine.classList.remove('cutting');
     cakeSlice.classList.remove('visible');
+    if (bouquetWrap) bouquetWrap.classList.remove('show');
     showScreen(cakeScreen);
   });
 
@@ -106,6 +127,7 @@
     setTimeout(function () {
       cakeSlice.classList.add('visible');
       cakeInstruction.textContent = 'You cut the cake! 🎉';
+      setGuideText('Great cut! Your motivational letter is opening now.');
       fireConfetti(3000);
       dropRoses(30);
     }, 900);
@@ -114,10 +136,19 @@
     setTimeout(function () {
       buildLetter();
       showScreen(letterScreen);
-      fireConfetti(3000);
+      // Keep confetti softer on letter reveal.
+      fireConfetti(1200, 1);
       dropRoses(25);
+      setTimeout(showBouquet, 1300);
     }, 3500);
   });
+
+  function showBouquet() {
+    if (!bouquetWrap) return;
+    bouquetWrap.classList.add('show');
+    setGuideText('A big bouquet for you. From Pravesh.');
+    dropRoses(12);
+  }
 
   // ════════════════════════════════════
   // 4. BUILD MOTIVATIONAL LETTER
@@ -158,6 +189,8 @@
     cakeCut = false;
     cutLine.classList.remove('cutting');
     cakeSlice.classList.remove('visible');
+    if (bouquetWrap) bouquetWrap.classList.remove('show');
+    cakeInstruction.textContent = 'Move your mouse over the cake and click to cut!';
     document.querySelectorAll('.flame').forEach(function (f) {
       f.classList.remove('out');
     });
@@ -168,13 +201,14 @@
   // ════════════════════════════════════
   // EFFECTS — Confetti
   // ════════════════════════════════════
-  function fireConfetti(duration) {
+  function fireConfetti(duration, particleCount) {
     if (typeof confetti === 'undefined') return;
     var dur = duration || 3000;
+    var count = particleCount || 4;
     var end = Date.now() + dur;
     (function frame() {
       confetti({
-        particleCount: 4,
+        particleCount: count,
         angle: 60 + Math.random() * 60,
         spread: 70,
         origin: { x: Math.random(), y: Math.random() * 0.4 },
@@ -271,5 +305,6 @@
 
   // Focus name input on start
   nameInput.focus();
+  updateGuideForScreen('nameScreen');
 
 })();
