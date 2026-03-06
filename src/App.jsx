@@ -86,62 +86,78 @@ const FloatingTreats = () => {
   );
 };
 
-const BorderBalloons = () => {
-  const balloons = useMemo(
+const BorderGlowOrbs = () => {
+  const orbs = useMemo(
     () =>
-      Array.from({ length: 18 }).map((_, i) => ({
-        id: i,
-        color: ['#fb7185', '#fda4af', '#fecdd3', '#f43f5e'][i % 4],
-        side: i < 8 ? 'top' : i < 13 ? 'left' : 'right',
-        pos: i < 8 ? 8 + i * 11 : 14 + (i % 5) * 16,
-        delay: i * 0.15,
-      })),
+      Array.from({ length: 30 }).map((_, i) => {
+        const side = i < 10 ? 'top' : i < 18 ? 'left' : i < 26 ? 'right' : 'bottom';
+        const pos = side === 'top' || side === 'bottom' ? 6 + (i % 10) * 9.5 : 10 + (i % 8) * 11;
+        return {
+          id: i,
+          side,
+          pos,
+          size: 16 + (i % 4) * 6,
+          delay: i * 0.18,
+          duration: 6.8 + (i % 5) * 0.9,
+          color: ['#fb7185', '#f43f5e', '#fda4af', '#ffffff'][i % 4],
+          glow: ['rgba(251,113,133,0.55)', 'rgba(244,63,94,0.58)', 'rgba(253,164,175,0.5)', 'rgba(255,255,255,0.42)'][i % 4],
+        };
+      }),
     []
   );
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[6] overflow-hidden">
-      {balloons.map((b) => {
-        const baseClass =
-          b.side === 'top'
-            ? `top-2`
-            : b.side === 'left'
-              ? `left-2`
-              : `right-2`;
+      {orbs.map((o) => {
+        const sideClass =
+          o.side === 'top'
+            ? 'top-2'
+            : o.side === 'left'
+              ? 'left-2'
+              : o.side === 'right'
+                ? 'right-2'
+                : 'bottom-2';
+
         const style =
-          b.side === 'top'
-            ? { left: `${b.pos}%` }
-            : { top: `${b.pos}%` };
+          o.side === 'top' || o.side === 'bottom'
+            ? { left: `${o.pos}%` }
+            : { top: `${o.pos}%` };
+
+        const axisAnim =
+          o.side === 'top' || o.side === 'bottom'
+            ? { y: [0, -3, 1, 0], x: [0, 1.5, -1.5, 0] }
+            : { x: [0, o.side === 'left' ? 2 : -2, 0], y: [0, -2.5, 0] };
 
         return (
           <motion.div
-            key={b.id}
-            className={`absolute ${baseClass}`}
+            key={o.id}
+            className={`absolute ${sideClass}`}
             style={style}
-            animate={{ y: [0, -5, 0], x: [0, b.side === 'top' ? 0 : b.side === 'left' ? 2 : -2, 0] }}
-            transition={{ duration: 2.8 + (b.id % 3) * 0.6, repeat: Infinity, delay: b.delay }}
+            animate={{
+              ...axisAnim,
+              opacity: [0.45, 0.88, 0.55, 0.75],
+              scale: [1, 1.08, 0.97, 1],
+            }}
+            transition={{
+              duration: o.duration,
+              repeat: Infinity,
+              delay: o.delay,
+              ease: 'easeInOut',
+            }}
           >
-            <div className="relative">
-              <div
-                className="w-5 h-6 md:w-6 md:h-8 rounded-full border border-white/30"
-                style={{ background: `linear-gradient(145deg, ${b.color}, #be123c)` }}
-              />
-              <div className="w-[1px] h-3 bg-rose-200/60 mx-auto" />
-            </div>
+            <div
+              className="rounded-full"
+              style={{
+                width: `${o.size}px`,
+                height: `${o.size}px`,
+                background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.92), ${o.color})`,
+                boxShadow: `0 0 18px ${o.glow}, 0 0 42px ${o.glow}`,
+                filter: 'blur(1.6px)',
+              }}
+            />
           </motion.div>
         );
       })}
-      <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-2">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <motion.div
-            key={i}
-            animate={{ y: [0, -4, 0], rotate: [0, 5, -5, 0] }}
-            transition={{ duration: 2 + (i % 4) * 0.4, repeat: Infinity, delay: i * 0.12 }}
-            className="w-4 h-6 rounded-full border border-white/25"
-            style={{ background: `linear-gradient(145deg, ${['#fb7185', '#fda4af', '#f43f5e', '#fecdd3'][i % 4]}, #9f1239)` }}
-          />
-        ))}
-      </div>
     </div>
   );
 };
@@ -282,7 +298,7 @@ function App() {
 
       <FloatingHearts />
       <FloatingTreats />
-      <BorderBalloons />
+      <BorderGlowOrbs />
       <PetalField count={40} />
       <CelebrationOverlay active={showCakeCelebration} name={name} />
       <ScreenCurtain screen={screen} />
@@ -374,7 +390,7 @@ function App() {
             </motion.h1>
             <h2 className="text-4xl md:text-6xl font-serif text-rose-200 font-bold mb-6">{name}</h2>
             <p className="text-base md:text-xl text-rose-100/90 mb-6 max-w-xl">
-              Balloons up, petals glowing, hearts flowing. This celebration is all yours.
+              Glowing lights, petals drifting, hearts flowing. This celebration is all yours.
             </p>
             <p className="text-rose-100/90 text-base md:text-lg">Tap anywhere to continue</p>
           </motion.div>
