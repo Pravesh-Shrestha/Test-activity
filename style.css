@@ -3,14 +3,17 @@
 :root {
   --ink:#0f0b0c; --rose:#c62c48; --cream:#fdf7f3; --gold:#f3c27f;
   --pink:#ff7eb3; --deep:#6b1631; --radius:20px;
-  --blueprint:#0c2940; --line:#3ca3d6;
+  --blueprint:#0c2940; --line:#3ca3d6; --pink-blue:#1a3058;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 
 body{
   font-family:'Manrope',system-ui,sans-serif;
-  background:#0d070a;
+  background:
+    radial-gradient(circle at 14% 10%, rgba(255,126,179,.2), transparent 30%),
+    radial-gradient(circle at 85% 20%, rgba(60,163,214,.16), transparent 34%),
+    linear-gradient(145deg,#120a17,#0b1627 55%,#24102a);
   color:var(--cream);
   min-height:100vh;
   overflow-x:hidden;
@@ -34,13 +37,13 @@ body{
 }
 .think-cloud{
   max-width:260px;padding:10px 14px;border-radius:16px;
-  background:#fff;color:#152430;font-size:13px;font-weight:700;line-height:1.35;
-  border:2px solid #d2e5f3;box-shadow:0 8px 22px rgba(0,0,0,.25);
+  background:linear-gradient(135deg,#fff,#ffeaf3);color:#152430;font-size:13px;font-weight:700;line-height:1.35;
+  border:2px solid #f0c4d8;box-shadow:0 8px 22px rgba(0,0,0,.25);
   position:relative;
 }
 .think-cloud::after{
   content:'';position:absolute;right:14px;bottom:-10px;width:14px;height:14px;
-  background:#fff;border-right:2px solid #d2e5f3;border-bottom:2px solid #d2e5f3;
+  background:#fff2f7;border-right:2px solid #f0c4d8;border-bottom:2px solid #f0c4d8;
   transform:rotate(45deg);
 }
 .guide-guy{
@@ -57,9 +60,19 @@ body{
   position:absolute;top:10px;left:28px;width:32px;height:32px;border-radius:50%;
   background:linear-gradient(180deg,#ffd8bc,#e8a77f);border:2px solid #915f44;
 }
+.guy-eye{position:absolute;top:22px;width:6px;height:6px;border-radius:50%;background:#1a1a1a;z-index:2}
+.eye-l{left:37px}
+.eye-r{left:47px}
+.guy-blush{position:absolute;top:29px;width:8px;height:5px;border-radius:50%;background:#ff86a1a0;z-index:2}
+.blush-l{left:31px}
+.blush-r{left:52px}
+.guy-smile{
+  position:absolute;top:30px;left:41px;width:8px;height:5px;
+  border-bottom:2px solid #7b3d2a;border-radius:0 0 10px 10px;z-index:2;
+}
 .guy-body{
   position:absolute;top:46px;left:20px;width:48px;height:44px;border-radius:8px;
-  background:linear-gradient(180deg,#2f7da4,#1f5677);border:2px solid #10364d;
+  background:linear-gradient(180deg,#48a0ce,#2f6d9e);border:2px solid #10364d;
 }
 .guy-arm,.guy-leg{position:absolute;background:#e8a77f;border:2px solid #915f44;border-radius:8px;}
 .guy-arm{top:52px;width:10px;height:28px;}
@@ -131,29 +144,28 @@ body{
    SCREEN 1 — NAME ENTRY
    ════════════════════════════════════════ */
 .name-screen{
-  background:radial-gradient(ellipse at 50% 30%,#1f0a12,#0d070a);
+  background:
+    radial-gradient(ellipse at 50% 30%,#3a1c40,#10142b);
 }
 .name-screen__inner{text-align:center;padding:40px 24px;max-width:600px;}
 
 .big-rose-wrap{display:flex;justify-content:center;gap:16px;margin-bottom:28px;}
 .big-rose{
   width:72px;height:72px;border-radius:50%;
-  background:conic-gradient(from 0deg,#ff4466,#cc1133,#ff6688,#dd2244,#ff4466);
-  box-shadow:0 8px 28px rgba(198,44,72,.5);
+  display:grid;place-items:center;
+  font-size:46px;line-height:1;
+  background:rgba(255,255,255,.06);
+  box-shadow:0 8px 28px rgba(198,44,72,.35);
   animation:rosePulse 3s ease-in-out infinite;
   position:relative;
 }
-.big-rose::after{
-  content:'';position:absolute;inset:18%;border-radius:50%;
-  background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.5),transparent 60%);
-}
 .big-rose.r2{
   width:56px;height:56px;animation-delay:-.8s;
-  background:conic-gradient(from 0deg,#ff9ec0,#e8608a,#ffb8d4,#d94e78,#ff9ec0);
+  font-size:36px;
 }
 .big-rose.r3{
   width:48px;height:48px;animation-delay:-1.6s;
-  background:conic-gradient(from 0deg,#ffd966,#e8a830,#ffe088,#d4952a,#ffd966);
+  font-size:32px;
 }
 @keyframes rosePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
 
@@ -180,7 +192,7 @@ body{
    SCREEN 2 — BIRTHDAY WISH
    ════════════════════════════════════════ */
 .wish-screen{
-  background:radial-gradient(ellipse at 50% 40%,#1f0a12,#0d070a);
+  background:radial-gradient(ellipse at 50% 40%,#351a43,#0b1627);
 }
 .wish-screen__inner{text-align:center;padding:40px 24px;max-width:700px;position:relative;}
 
@@ -199,15 +211,14 @@ body{
 /* Corner roses */
 .rose-shower-area{position:absolute;inset:0;pointer-events:none;}
 .deco-rose{
-  position:absolute;width:60px;height:60px;border-radius:50%;
-  background:conic-gradient(from 0deg,#ff4466,#cc1133,#ff6688,#dd2244,#ff4466);
-  box-shadow:0 6px 20px rgba(198,44,72,.4);
+  position:absolute;width:60px;height:60px;
+  display:grid;place-items:center;
+  font-size:42px;line-height:1;
+  background:rgba(255,255,255,.03);
+  border-radius:50%;
+  box-shadow:0 6px 20px rgba(198,44,72,.28);
   animation:rosePulse 4s ease-in-out infinite;
   opacity:.6;
-}
-.deco-rose::after{
-  content:'';position:absolute;inset:20%;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,255,255,.4),transparent 60%);
 }
 .deco-rose.tl{top:10%;left:5%;width:50px;height:50px;animation-delay:0s}
 .deco-rose.tr{top:8%;right:5%;width:65px;height:65px;animation-delay:-.6s}
@@ -218,7 +229,9 @@ body{
    SCREEN 3 — CAKE CUTTING
    ════════════════════════════════════════ */
 .cake-screen{
-  background:radial-gradient(ellipse at 50% 60%,#13324a,#07121d);
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255,126,179,.2), transparent 30%),
+    radial-gradient(ellipse at 50% 60%,#17395a,#141930);
 }
 .cake-screen__inner{text-align:center;padding:40px 24px;width:100%;max-width:700px;}
 
@@ -235,7 +248,7 @@ body{
   cursor:none;
   border:2px solid rgba(60,163,214,.5);
   border-radius:20px;
-  background:linear-gradient(180deg,rgba(12,41,64,.45),rgba(10,25,38,.6));
+  background:linear-gradient(180deg,rgba(23,57,90,.48),rgba(44,19,54,.44));
   box-shadow:inset 0 0 0 1px rgba(165,220,245,.15), 0 16px 40px rgba(0,0,0,.35);
 }
 
@@ -359,14 +372,13 @@ body{
 
 /* Rose decorations on cake */
 .rose-deco{
-  position:absolute;width:18px;height:18px;border-radius:50%;
-  background:conic-gradient(from 0deg,#ffcf66,#d39928,#ffe08c,#d69f34,#ffcf66);
-  box-shadow:0 2px 8px rgba(198,44,72,.5);z-index:4;
+  position:absolute;
+  width:18px;height:18px;
+  display:grid;place-items:center;
+  font-size:18px;line-height:1;
+  text-shadow:0 2px 6px rgba(0,0,0,.45);
+  z-index:4;
   animation:rosePulse 3s ease-in-out infinite;
-}
-.rose-deco::after{
-  content:'';position:absolute;inset:20%;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,255,255,.4),transparent);
 }
 .rd1{top:8px;left:8px;width:14px;height:14px}
 .rd2{top:8px;right:8px;width:14px;height:14px;animation-delay:-.5s}
@@ -452,7 +464,7 @@ body{
    SCREEN 4 — LETTER
    ════════════════════════════════════════ */
 .letter-screen{
-  background:radial-gradient(ellipse at 50% 30%,#1f0a12,#0d070a);
+  background:radial-gradient(ellipse at 50% 30%,#3a1946,#0a1424);
 }
 .letter-screen__inner{
   padding:40px 24px;max-width:640px;text-align:center;
@@ -550,13 +562,11 @@ body{
 }
 .big-rose-bq{
   position:absolute;width:64px;height:64px;border-radius:50%;
-  background:conic-gradient(from 0deg,#ff4a6e,#bd1232,#ff6e90,#dd2950,#ff4a6e);
-  box-shadow:0 10px 24px rgba(198,44,72,.4);
+  display:grid;place-items:center;
+  font-size:44px;line-height:1;
+  background:rgba(255,255,255,.04);
+  box-shadow:0 10px 24px rgba(198,44,72,.25);
   animation:rosePulse 2.8s ease-in-out infinite;
-}
-.big-rose-bq::after{
-  content:'';position:absolute;inset:20%;border-radius:50%;
-  background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.5),transparent 60%);
 }
 .b1{left:16px;top:18px}
 .b2{left:68px;top:4px;animation-delay:-.3s}
@@ -574,7 +584,7 @@ body{
 .bouquet-note{
   margin-top:8px;
   font-family:'Dancing Script',cursive;
-  color:var(--pink);
+  color:#ffb1cf;
   font-size:24px;
 }
 

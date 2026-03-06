@@ -46,7 +46,7 @@
 
   function updateGuideForScreen(screenId) {
     if (screenId === 'nameScreen') {
-      setGuideText('Hi! I am your birthday guide. Enter your name to begin.');
+      setGuideText('Hi cutie! I am your birthday guide. Enter your name to begin.');
     } else if (screenId === 'wishScreen') {
       setGuideText('Nice! Tap "Time to Cut the Cake" to open the architect cake studio.');
     } else if (screenId === 'cakeScreen') {
@@ -223,7 +223,7 @@
   // ════════════════════════════════════
   function dropRoses(count) {
     if (!petalField) return;
-    var roseEmojis = ['🌹', '🥀', '🌷', '💐', '🌺'];
+    var roseEmojis = ['🌹'];
     for (var i = 0; i < count; i++) {
       var rose = document.createElement('span');
       rose.className = 'falling-rose';
