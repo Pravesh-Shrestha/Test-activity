@@ -1,0 +1,320 @@
+/* Dog & Cake & Rose CSS - Direct port for fidelity */
+.guide-wrapper {
+  position: fixed;
+  left: 20px;
+  bottom: 0px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+  transition: transform 0.5s ease-out;
+}
+
+.guide-wrapper.hidden {
+  transform: translateY(120%);
+}
+
+.think-cloud {
+  max-width: 300px;
+  background: linear-gradient(140deg, #fff, #ffe8f1);
+  color: #1f2c39;
+  padding: 12px 16px;
+  border: 4px solid #f3c8d8;
+  border-radius: 18px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
+  position: relative;
+  margin-bottom: 10px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.think-cloud::after {
+  content: "";
+  position: absolute;
+  left: 30px;
+  bottom: -12px;
+  width: 20px;
+  height: 20px;
+  transform: rotate(45deg);
+  background: #ffedf3;
+  border-right: 4px solid #f3c8d8;
+  border-bottom: 4px solid #f3c8d8;
+}
+
+.guide-dog {
+  width: 260px;
+  height: 226px;
+  position: relative;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.35));
+  animation: bob 2.5s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.dog-head {
+  position: absolute;
+  width: 120px;
+  height: 98px;
+  border-radius: 50%;
+  left: 42px;
+  top: 20px;
+  background: linear-gradient(180deg, #f9dcae, #e1b071);
+  border: 3px solid #8a5a33;
+  z-index: 2;
+}
+
+.dog-ear {
+  position: absolute;
+  width: 34px;
+  height: 62px;
+  top: 8px;
+  border-radius: 46% 46% 40% 40%;
+  background: linear-gradient(180deg, #9a613a, #714122);
+  border: 2px solid #5e341d;
+}
+
+.dog-ear.left { left: 34px; transform: rotate(-16deg); }
+.dog-ear.right { right: 20px; transform: rotate(16deg); }
+
+.dog-snout {
+  position: absolute;
+  width: 58px;
+  height: 34px;
+  left: 74px;
+  top: 74px;
+  border-radius: 45%;
+  background: linear-gradient(180deg, #fff3d8, #efcca0);
+  border: 2px solid #c2905f;
+  z-index: 3;
+}
+
+.dog-eye {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  top: 60px;
+  background: #20160f;
+  z-index: 4;
+}
+
+.dog-eye.left { left: 82px; }
+.dog-eye.right { left: 116px; }
+
+.dog-nose {
+  position: absolute;
+  width: 15px;
+  height: 11px;
+  left: 96px;
+  top: 86px;
+  border-radius: 45%;
+  background: #291911;
+  z-index: 5;
+}
+
+.dog-mouth {
+  position: absolute;
+  width: 20px;
+  height: 10px;
+  left: 94px;
+  top: 97px;
+  border-bottom: 3px solid #733f26;
+  border-radius: 0 0 12px 12px;
+  z-index: 5;
+}
+
+.dog-tongue {
+  position: absolute;
+  width: 11px;
+  height: 7px;
+  left: 98px;
+  top: 103px;
+  border-radius: 0 0 10px 10px;
+  background: #ff7896;
+  z-index: 5;
+}
+
+.dog-body {
+  position: absolute;
+  width: 132px;
+  height: 68px;
+  left: 38px;
+  top: 114px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #f5d2a3, #d99d63);
+  border: 3px solid #8a5a33;
+}
+
+.dog-collar {
+  position: absolute;
+  width: 68px;
+  height: 12px;
+  left: 70px;
+  top: 120px;
+  border-radius: 9px;
+  background: linear-gradient(90deg, #ff4f83, #db2658);
+  z-index: 6;
+}
+
+.dog-tag {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 96px;
+  top: 130px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffe089, #dca233);
+  border: 1px solid #9f6d1e;
+  z-index: 6;
+}
+
+.dog-paw {
+  position: absolute;
+  width: 34px;
+  height: 22px;
+  top: 160px;
+  border-radius: 16px;
+  background: #ebba89;
+  border: 2px solid #8a5a33;
+}
+
+.dog-paw.left { left: 56px; }
+.dog-paw.right { left: 112px; }
+
+.dog-tail {
+  position: absolute;
+  width: 38px;
+  height: 12px;
+  right: 14px;
+  top: 126px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #cc8a54, #a66337);
+  border: 2px solid #8a5a33;
+  transform-origin: left center;
+  animation: wag 0.45s ease-in-out infinite alternate;
+}
+
+@keyframes wag {
+  from { transform: rotate(7deg); }
+  to { transform: rotate(28deg); }
+}
+
+/* CAKE CSS */
+.cake-container {
+  /* relative to parent */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+}
+
+.tier {
+  margin: 0 auto;
+  position: relative;
+  transform: rotateX(8deg);
+  transition: transform 0.5s ease-out;
+}
+
+.tier:hover {
+  transform: rotateX(5deg) translateY(-5px);
+}
+
+.tier-top {
+  width: 180px;
+  height: 100px;
+  margin-bottom: -10px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ffe3ef, #f3a3bf);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24), inset 0 -8px 12px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+}
+
+.tier-mid {
+  width: 280px;
+  height: 120px;
+  margin-bottom: -10px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ffe8bc, #ecaa60);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.24), inset 0 -8px 14px rgba(0, 0, 0, 0.12);
+  z-index: 2;
+}
+
+.tier-bottom {
+  width: 380px;
+  height: 140px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #6f3b24, #482113);
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.32), inset 0 -10px 16px rgba(0, 0, 0, 0.18);
+  z-index: 1;
+}
+
+.candle {
+  width: 20px;
+  height: 80px;
+  border-radius: 8px;
+  border: 1px solid rgba(111, 69, 28, 0.3);
+  background: repeating-linear-gradient(180deg, #fff9eb 0 10px, #ffc272 10px 20px);
+  position: absolute;
+  top: -65px;
+  left: calc(50% - 10px);
+  z-index: 10;
+  box-shadow: 0 4px 5px rgba(0,0,0,0.2);
+}
+
+.wick {
+  width: 4px;
+  height: 12px;
+  background: #4A3728;
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.flame {
+  width: 24px;
+  height: 40px;
+  position: absolute;
+  left: 50%;
+  top: -45px;
+  transform: translateX(-50%);
+  border-radius: 50% 50% 20% 20%;
+  background: radial-gradient(#fff 10%, #ffc107 90%);
+  filter: drop-shadow(0 0 10px #ff9800);
+  animation: flicker 0.1s infinite alternate;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.flame.out {
+  opacity: 0;
+  animation: none;
+}
+
+@keyframes flicker {
+  0% { transform: translateX(-50%) skewX(-2deg); }
+  100% { transform: translateX(-50%) skewX(2deg); }
+}
+
+/* Roses SVG */
+.rose-svg {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+}
+
+.rose-corner {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  z-index: 0;
+}

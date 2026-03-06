@@ -1,4 +1,5 @@
 const { useEffect, useMemo, useRef, useState } = React;
+const BUILD_TAG = 'v2-react-json-20260306c';
 
 function BirthdayApp() {
   const [config, setConfig] = useState(null);
@@ -18,7 +19,7 @@ function BirthdayApp() {
   const letterBodyRef = useRef(null);
 
   useEffect(() => {
-    fetch('data.json')
+    fetch('data.json?v=20260306c')
       .then((r) => r.json())
       .then((data) => {
         setConfig(data);
@@ -269,6 +270,7 @@ function BirthdayApp() {
 
   return (
     <>
+      <div className="build-badge">{BUILD_TAG}</div>
       <div className="bg-orb orb-a" aria-hidden="true"></div>
       <div className="bg-orb orb-b" aria-hidden="true"></div>
       <div className="bg-grid" aria-hidden="true"></div>

@@ -202,7 +202,7 @@ h2 {
   position: fixed;
   left: 20px;
   bottom: 16px;
-  z-index: 70;
+  z-index: 90;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -236,8 +236,8 @@ h2 {
 }
 
 .guide-dog {
-  width: 210px;
-  height: 188px;
+  width: 260px;
+  height: 226px;
   position: relative;
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.35));
   animation: bob 2.5s ease-in-out infinite;
@@ -457,13 +457,13 @@ h2 {
 }
 
 .cake-area {
-  width: min(620px, 94vw);
-  height: min(500px, 72vh);
+  width: min(700px, 96vw);
+  height: min(560px, 76vh);
   margin: 20px auto 10px;
   border-radius: 24px;
   border: 2px solid rgba(166, 216, 255, 0.5);
   position: relative;
-  background: linear-gradient(180deg, rgba(37, 86, 127, 0.6), rgba(45, 27, 65, 0.55));
+  background: linear-gradient(180deg, rgba(44, 104, 151, 0.66), rgba(73, 35, 102, 0.58));
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 20px 34px rgba(0, 0, 0, 0.32);
   overflow: hidden;
   cursor: none;
@@ -480,7 +480,7 @@ h2 {
 }
 
 .cake3d {
-  width: 340px;
+  width: 390px;
   position: absolute;
   left: 50%;
   bottom: 28px;
@@ -512,8 +512,8 @@ h2 {
 }
 
 .tier-top {
-  width: 130px;
-  height: 78px;
+  width: 150px;
+  height: 90px;
   margin-bottom: -6px;
   border-radius: 14px;
   background: linear-gradient(180deg, #ffe3ef, #f3a3bf);
@@ -522,8 +522,8 @@ h2 {
 }
 
 .tier-mid {
-  width: 210px;
-  height: 96px;
+  width: 250px;
+  height: 112px;
   margin-bottom: -6px;
   border-radius: 14px;
   background: linear-gradient(180deg, #ffe8bc, #ecaa60);
@@ -532,8 +532,8 @@ h2 {
 }
 
 .tier-bottom {
-  width: 300px;
-  height: 118px;
+  width: 350px;
+  height: 136px;
   border-radius: 16px;
   background: linear-gradient(180deg, #6f3b24, #482113);
   box-shadow: 0 16px 28px rgba(0, 0, 0, 0.32), inset 0 -10px 16px rgba(0, 0, 0, 0.18);
@@ -552,8 +552,8 @@ h2 {
 }
 
 .cake-base {
-  width: 340px;
-  height: 18px;
+  width: 390px;
+  height: 20px;
   margin: 8px auto 0;
   background: linear-gradient(180deg, #ece6dc, #cec6bb);
   border-radius: 999px;
@@ -561,8 +561,8 @@ h2 {
 }
 
 .rose-deco {
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.26));
 }
 
@@ -579,7 +579,7 @@ h2 {
 .candles-row {
   position: absolute;
   left: 50%;
-  top: 132px;
+  top: 146px;
   transform: translateX(-50%);
   display: flex;
   gap: 18px;
@@ -587,8 +587,8 @@ h2 {
 }
 
 .candle {
-  width: 14px;
-  height: 70px;
+  width: 18px;
+  height: 84px;
   border-radius: 8px;
   border: 1px solid rgba(111, 69, 28, 0.45);
   background: repeating-linear-gradient(180deg, #fff9eb 0 8px, #ffc272 8px 16px);
@@ -607,14 +607,14 @@ h2 {
 }
 
 .flame {
-  width: 18px;
-  height: 30px;
+  width: 24px;
+  height: 38px;
   position: absolute;
-  left: calc(50% - 9px);
-  top: -35px;
+  left: calc(50% - 12px);
+  top: -43px;
   border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
   background: radial-gradient(ellipse at 50% 62%, #fffbd8 8%, #ffe06f 36%, #ff9a35 70%, rgba(255, 125, 15, 0.22) 100%);
-  box-shadow: 0 0 22px rgba(255, 188, 84, 0.86), 0 0 45px rgba(255, 132, 28, 0.58);
+  box-shadow: 0 0 26px rgba(255, 188, 84, 0.95), 0 0 58px rgba(255, 132, 28, 0.72);
   animation: flameFlicker 0.78s ease-in-out infinite alternate;
 }
 
@@ -814,17 +814,17 @@ h2 {
 }
 
 .big-rose-bq {
-  width: 82px;
-  height: 82px;
+  width: 96px;
+  height: 96px;
   filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.28));
 }
 
 .b1 { left: 8px; top: 20px; }
-.b2 { left: 62px; top: 6px; }
-.b3 { left: 124px; top: 20px; }
-.b4 { left: 34px; top: 82px; }
-.b5 { left: 96px; top: 88px; }
-.b6 { left: 162px; top: 72px; }
+.b2 { left: 70px; top: 4px; }
+.b3 { left: 142px; top: 20px; }
+.b4 { left: 38px; top: 86px; }
+.b5 { left: 108px; top: 90px; }
+.b6 { left: 178px; top: 74px; }
 
 .bouquet-ribbon {
   position: absolute;
@@ -859,10 +859,25 @@ h2 {
 }
 
 .falling-rose {
-  width: 46px;
-  height: 46px;
+  width: 58px;
+  height: 58px;
   animation: roseFall 4.5s ease-in forwards;
   filter: drop-shadow(0 4px 12px rgba(210, 39, 88, 0.45));
+}
+
+.build-badge {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 120;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #1d2632;
+  background: linear-gradient(135deg, #ffe29f, #ffb8d0);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
 }
 
 @keyframes roseFall {
@@ -906,24 +921,24 @@ h2 {
   }
 
   .guide-dog {
-    transform: scale(0.75);
+    transform: scale(0.62);
     transform-origin: bottom left;
   }
 
   .cake-area {
-    height: 430px;
+    height: 460px;
   }
 
   .cake3d {
-    width: 286px;
+    width: 318px;
   }
 
-  .tier-top { width: 110px; height: 66px; }
-  .tier-mid { width: 178px; height: 82px; }
-  .tier-bottom { width: 252px; height: 102px; }
-  .cake-base { width: 286px; }
+  .tier-top { width: 120px; height: 72px; }
+  .tier-mid { width: 196px; height: 92px; }
+  .tier-bottom { width: 286px; height: 114px; }
+  .cake-base { width: 318px; }
 
-  .candles-row { top: 124px; }
+  .candles-row { top: 132px; }
   .cut-line { top: 108px; }
   .cake-slice { right: 14px; }
 }
