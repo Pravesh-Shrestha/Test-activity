@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday Atelier</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="rose-overlay" aria-hidden="true"></div>
+  <header class="hero">
+    <div class="hero__text">
+      <p class="eyebrow">Architected for a birthday</p>
+      <h1>Happy Birthday, Friend!</h1>
+      <p class="lede">A modern rose garden, layered cake, and moments designed to feel like you.</p>
+      <div class="cta-row">
+        <button class="btn primary" id="cutButton">Cut a slice</button>
+        <button class="btn ghost" id="petalButton">Shower roses</button>
+      </div>
+    </div>
+    <div class="hero__art">
+      <div class="arch-frame">
+        <div class="rose-bundle">
+          <div class="rose"></div>
+          <div class="rose small"></div>
+          <div class="rose tiny"></div>
+        </div>
+        <div class="cake-mini">
+          <span class="layer top"></span>
+          <span class="layer mid"></span>
+          <span class="layer base"></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="grid">
+      <article class="card ribbon">
+        <h2>Rose Garden</h2>
+        <p>Blush petals, soft gradients, and velvet shadows set the mood. Hover to see blooms breathe.</p>
+        <div class="rose-bed">
+          <div class="rose stem"></div>
+          <div class="rose stem delay"></div>
+          <div class="rose stem slow"></div>
+        </div>
+      </article>
+      <article class="card glass">
+        <h2>Cake Studio</h2>
+        <p>Slice the layered cake. Every cut animates with a glide and candlelight glimmer.</p>
+        <div class="cake-stage">
+          <div class="cake" id="cake">
+            <div class="cake__layer cake__layer--top"></div>
+            <div class="cake__layer cake__layer--mid"></div>
+            <div class="cake__layer cake__layer--base"></div>
+            <div class="cake__slice" id="slice">
+              <div class="slice__glow"></div>
+            </div>
+            <div class="candles">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+        <div class="controls">
+          <label class="label">Slice thickness</label>
+          <input type="range" id="thickness" min="12" max="26" value="18" />
+        </div>
+      </article>
+      <article class="card list">
+        <h2>Moments</h2>
+        <ul>
+          <li><span>01</span>Make a wish under rose arches.</li>
+          <li><span>02</span>Slice the cake—watch the layers glide.</li>
+          <li><span>03</span>Release petals and let them fall.</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+
+  <div class="petal-field" id="petalField" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
