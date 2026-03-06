@@ -4,5 +4,5 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './', // Using relative paths for easy deployment
+  base: '/Test-activity/', // Set exact repo name for GitHub Pages
 });
