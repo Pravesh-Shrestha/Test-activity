@@ -5,7 +5,7 @@ export function Dog({ show = true }) {
   if (!show) return null;
 
   return (
-    <div className="guide-dog bottom-10 left-10 fixed z-50">
+    <div className="guide-dog relative z-50">
       <div className="dog-head">
         <div className="dog-ear left"></div>
         <div className="dog-ear right"></div>

@@ -1,27 +1,31 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Settings, Play, Music } from 'lucide-react';
-import { Howl } from 'howler';
+import { Music, Music2, Heart } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 import { Guide, Dog } from './components/Dog';
 import { Cake } from './components/Cake';
+import { PetalField } from './components/PetalField';
 import './index.css';
 
-// Simple fallback sound logic if Howl assets aren't present
+// Gentle bark sound
 const playBark = () => {
   const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const t = ctx.currentTime;
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
-  osc.type = 'sawtooth';
-  osc.frequency.setValueAtTime(400, ctx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.1);
-  gain.gain.setValueAtTime(0.1, ctx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+  
+  osc.type = 'triangle';
+  osc.frequency.setValueAtTime(300, t);
+  osc.frequency.exponentialRampToValueAtTime(50, t + 0.15);
+  
+  gain.gain.setValueAtTime(0.1, t);
+  gain.gain.exponentialRampToValueAtTime(0.01, t + 0.1);
+  
   osc.connect(gain);
   gain.connect(ctx.destination);
-  osc.start();
-  osc.stop(ctx.currentTime + 0.15);
+  osc.start(t);
+  osc.stop(t + 0.15);
 };
 
 function App() {
@@ -29,10 +33,8 @@ function App() {
   const [config, setConfig] = useState(null);
   const [name, setName] = useState('');
   const [guideText, setGuideText] = useState('Loading...');
-  const [musicPlaying, setMusicPlaying] = useState(false);
-  
-  // Background music ref (placeholder)
-  const bgMusic = useRef(null);
+  const [musicAllowed, setMusicAllowed] = useState(false);
+  const [showPetals, setShowPetals] = useState(false);
 
   useEffect(() => {
     fetch(import.meta.env.BASE_URL + 'data.json')
@@ -47,9 +49,18 @@ function App() {
   useEffect(() => {
     if (!config) return;
     if (screen === 'intro') setGuideText(config.guideMessages.intro);
-    if (screen === 'wish') setGuideText(config.guideMessages.wishScreen);
-    if (screen === 'cake') setGuideText(config.guideMessages.cakeScreen);
-    if (screen === 'letter') setGuideText(config.guideMessages.letterScreen);
+    if (screen === 'wish') {
+      setGuideText(config.guideMessages.wishScreen);
+      setShowPetals(true);
+    }
+    if (screen === 'cake') {
+      setGuideText(config.guideMessages.cakeScreen);
+      // Keep petals? Maybe reduce count.
+    }
+    if (screen === 'letter') {
+      setGuideText(config.guideMessages.letterScreen);
+      setShowPetals(true);
+    }
     
     playBark();
   }, [screen, config]);
@@ -70,44 +81,64 @@ function App() {
     setTimeout(() => {
         setScreen('letter');
         playBark();
-    }, 2000);
+    }, 2500);
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden text-white font-happy bg-gradient-to-br from-[#120d22] to-[#161f34]">
-      {/* Background decorations */}
-      <div className="fixed top-[-10%] left-[-10%] w-[50vh] h-[50vh] bg-pink-500 rounded-full mix-blend-screen filter blur-[100px] opacity-20 animate-pulse"></div>
-      <div className="fixed bottom-[-10%] right-[-10%] w-[60vh] h-[60vh] bg-blue-500 rounded-full mix-blend-screen filter blur-[120px] opacity-20 animate-pulse delay-1000"></div>
+    <div className="relative min-h-screen overflow-hidden text-gray-800 font-sans bg-pink-100/50 selection:bg-pink-300">
+      
+      {/* Dynamic Background */}
+      <div className="fixed inset-0 bg-gradient-to-br from-pink-100 via-rose-50 to-blue-50 opacity-80 -z-20"></div>
+      
+      {/* Decorative Orbs */}
+      <div className="fixed top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-pink-300/20 rounded-full blur-[80px] animate-pulse"></div>
+      <div className="fixed bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-yellow-200/30 rounded-full blur-[80px] animate-pulse delay-1000"></div>
+
+      {/* Floating Petals */}
+      <AnimatePresence>
+        {showPetals && (
+           <motion.div
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             exit={{ opacity: 0 }}
+           >
+             <PetalField count={25} />
+           </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence mode="wait">
         
         {screen === 'intro' && (
           <motion.div 
             key="intro"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, x: -100 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95 }}
             className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10"
           >
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 font-fraunces text-pink-200 drop-shadow-lg">
-              {config?.siteTitle || "Birthday Time!"}
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-blue-100/80">Are you ready?</p>
-            
-            <div className="flex gap-2">
-              <input 
-                type="text" 
-                placeholder="Enter Name" 
-                className="px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 backdrop-blur-sm"
-                onKeyDown={(e) => e.key === 'Enter' && handleStart(e.target.value)}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <button 
-                onClick={() => handleStart(name)}
-                className="px-8 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 font-bold hover:scale-105 transition-transform shadow-lg shadow-pink-500/30"
-              >
-                Start
-              </button>
+            <div className="bg-white/40 backdrop-blur-md p-10 rounded-3xl border border-white/60 shadow-xl max-w-lg w-full">
+              <span className="text-6xl mb-4 block">🎁</span>
+              <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4 text-pink-600 drop-shadow-sm">
+                {config?.siteTitle || "Birthday Time!"}
+              </h1>
+              <p className="text-xl text-gray-600 mb-8 font-light">A special surprise awaits you.</p>
+              
+              <div className="flex flex-col gap-4">
+                <input 
+                  type="text" 
+                  placeholder="What's your name?" 
+                  className="px-6 py-4 rounded-xl bg-white/80 border-2 border-pink-100 text-gray-700 placeholder-gray-400 focus:outline-none focus:border-pink-300 focus:ring-4 focus:ring-pink-100 transition-all text-center text-lg shadow-inner"
+                  onKeyDown={(e) => e.key === 'Enter' && handleStart(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <button 
+                  onClick={() => handleStart(name)}
+                  className="px-8 py-4 rounded-xl bg-gradient-to-r from-pink-500 to-rose-400 text-white font-bold text-lg hover:shadow-lg hover:translate-y-[-2px] transition-all shadow-pink-200 flex items-center justify-center gap-2"
+                >
+                  Open Gift <Heart size={20} fill="currentColor" />
+                </button>
+              </div>
             </div>
           </motion.div>
         )}
@@ -115,24 +146,26 @@ function App() {
         {screen === 'wish' && (
           <motion.div 
             key="wish"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, y: -50 }}
             className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10"
           >
-            <div className="w-full max-w-2xl bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10 shadow-2xl">
-              <h2 className="text-3xl md:text-5xl font-bold font-fraunces text-yellow-300 mb-6 neon-text">
+            <div className="relative">
+              <h2 className="text-4xl md:text-6xl font-serif font-medium text-pink-700 mb-8 relative z-10">
                 Make a Wish...
               </h2>
-              <p className="text-lg md:text-xl text-pink-100 mb-8 leading-relaxed">
-                Close your eyes, think of something beautiful, and let the magic begin.
+              <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-xl mx-auto font-hand leading-relaxed">
+                "Close your eyes, take a deep breath, and think of your fondest dream."
               </p>
-              <button 
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={handleWishMade}
-                className="px-10 py-4 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-bold text-xl hover:scale-105 transition-transform shadow-lg shadow-yellow-500/30"
+                className="px-10 py-4 rounded-full bg-white text-pink-600 font-bold text-xl shadow-xl border border-pink-100 hover:bg-pink-50 transition-colors flex items-center gap-3 mx-auto"
               >
-                I Wished! ✨
-              </button>
+                <span>✨</span> I Wished!
+              </motion.button>
             </div>
           </motion.div>
         )}
@@ -140,63 +173,80 @@ function App() {
         {screen === 'cake' && (
           <motion.div 
             key="cake"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.2 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 1.1 }}
             className="absolute inset-0 flex flex-col items-center justify-center z-10"
           >
-            <Cake onCut={handleCakeDone} dogBark={playBark} />
+            <div className="scale-75 md:scale-100 transform transition-transform">
+               <Cake onCut={handleCakeDone} dogBark={playBark} />
+            </div>
           </motion.div>
         )}
 
         {screen === 'letter' && (
           <motion.div 
             key="letter"
-            initial={{ opacity: 0, rotateX: 90 }}
-            animate={{ opacity: 1, rotateX: 0 }}
-            transition={{ type: "spring", bounce: 0.4 }}
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 50 }}
             className="absolute inset-0 flex flex-col items-center justify-center p-4 z-20 overflow-y-auto"
           >
-            <div className="w-full max-w-3xl bg-white/10 backdrop-blur-xl rounded-2xl p-8 md:p-12 border border-white/20 shadow-2xl my-auto">
-              {/* Rose Icon or similar decoration */}
-              <div className="w-16 h-16 bg-pink-500 rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg shadow-pink-500/40">
-                <span className="text-3xl">🌹</span>
-              </div>
+            <div className="letter-paper bg-[#fdfbf7] p-8 md:p-16 max-w-2xl w-full shadow-2xl relative rotate-1 transform mx-auto my-10">
+              {/* Paper Texture Effect */}
+              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] opacity-50 pointer-events-none"></div>
               
-              <h2 className="text-3xl md:text-4xl font-bold font-fraunces text-center mb-8 text-pink-200">
-                Dear {name},
-              </h2>
-              
-              <div className="space-y-4 text-lg md:text-xl leading-relaxed text-pink-50/90 font-nunito text-left">
-                {config?.letterTemplate ? (
-                   config.letterTemplate.map((line, i) => (
-                     <p key={i}>{line.replace('{name}', name)}</p>
-                   ))
-                ) : (
-                   <p>Happy Birthday! May your day be filled with joy and laughter.</p>
-                )}
-              </div>
+              {/* Tape */}
+              <div className="absolute top-[-15px] left-[50%] translate-x-[-50%] w-32 h-8 bg-pink-200/40 rotate-[2deg] backdrop-blur-sm"></div>
 
-              <div className="mt-12 pt-8 border-t border-white/10 text-center">
-                 <p className="font-caveat text-4xl text-yellow-300 rotate-[-2deg]">
-                   From, Your Developer Friend
-                 </p>
+              <div className="relative z-10">
+                <div className="flex justify-between items-start mb-8 border-b-2 border-pink-100 pb-4">
+                    <h2 className="text-4xl md:text-5xl font-hand font-bold text-pink-800">
+                    Dear {name},
+                    </h2>
+                    <span className="text-4xl animate-bounce">💌</span>
+                </div>
+                
+                <div className="space-y-6 text-xl md:text-2xl leading-loose font-hand text-gray-700">
+                    {config?.letterTemplate ? (
+                    config.letterTemplate.map((line, i) => (
+                        <p key={i}>{line.replace('{name}', name)}</p>
+                    ))
+                    ) : (
+                    <p>Writing your letter...</p>
+                    )}
+                </div>
+
+                <div className="mt-16 text-right">
+                    <p className="font-serif text-lg italic text-gray-500 mb-2">With love,</p>
+                    <p className="font-hand text-3xl text-pink-600 font-bold -rotate-2 inline-block">
+                    Your Secret Developer
+                    </p>
+                </div>
               </div>
-              
-              <button 
-                  onClick={() => window.location.reload()}
-                  className="mt-8 text-sm opacity-50 hover:opacity-100 underline pb-20"
-              >
-                  Replay
-              </button>
             </div>
+            
+            <button 
+                onClick={() => window.location.reload()}
+                className="mb-10 px-6 py-2 bg-white/50 hover:bg-white rounded-full text-sm text-pink-400 font-bold transition-all"
+            >
+                Read Again ↻
+            </button>
           </motion.div>
         )}
 
       </AnimatePresence>
 
-      {/* Guide Dog Overlay (Always present) */}
+      {/* Persistent Elements */}
       <Guide text={guideText} show={true} />
+      
+      {/* Music Toggle (Visual only for now, could be hooked up) */}
+      <button 
+        className="fixed top-6 right-6 p-3 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-sm text-pink-700 transition-colors z-50"
+        onClick={() => setMusicAllowed(!musicAllowed)}
+      >
+        {musicAllowed ? <Music2 size={24} /> : <Music size={24} />}
+      </button>
 
     </div>
   )
