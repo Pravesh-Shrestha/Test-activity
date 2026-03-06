@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-gradient-to-br from-pink-200 via-purple-200 to-blue-200 min-h-screen text-gray-800 font-happy overflow-hidden;
+    @apply bg-pink-50 min-h-screen text-gray-800 font-sans overflow-hidden;
   }
 }
 
