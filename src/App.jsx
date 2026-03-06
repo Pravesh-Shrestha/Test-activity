@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Music, Music2, Heart, Star, Sparkles, ChevronRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-import { Guide, playBark } from './components/Dog';
+import { Guide } from './components/Dog';
 import { Cake } from './components/Cake';
 import { PetalField } from './components/PetalField';
 import { Bouquet } from './components/Bouquet';
@@ -12,39 +12,79 @@ import { cn } from './lib/utils';
 import './index.css';
 
 const BRUNO_IMG = import.meta.env.BASE_URL + 'bruno.png';
-const BUILD_ID = '2026-03-06-ui-refresh-1';
+const BUILD_ID = '2026-03-06-ui-refresh-2';
 
-const FloatingHearts = () => (
-  <div className="fixed inset-0 pointer-events-none z-[2] overflow-hidden">
-    {Array.from({ length: 20 }).map((_, i) => (
-      <motion.div
-        key={i}
-        className="absolute text-red-300/45"
-        initial={{
-          x: `${10 + Math.random() * 80}vw`,
-          y: '105vh',
+const FloatingHearts = () => {
+  const hearts = useMemo(
+    () =>
+      Array.from({ length: 20 }).map((_, i) => {
+        const x1 = 8 + Math.random() * 84;
+        const x2 = 8 + Math.random() * 84;
+        const x3 = 8 + Math.random() * 84;
+        return {
+          id: i,
+          x1,
+          x2,
+          x3,
           scale: 0.5 + Math.random() * 0.8,
           rotate: Math.random() * 30 - 15,
-        }}
-        animate={{
-          y: '-10vh',
-          rotate: [0, 18, -12, 14, -8, 0],
-          x: [`${10 + Math.random() * 80}vw`, `${20 + Math.random() * 60}vw`, `${12 + Math.random() * 76}vw`],
-          opacity: [0.25, 0.7, 0.35],
-        }}
-        transition={{
           duration: 10 + Math.random() * 8,
-          repeat: Infinity,
-          delay: i * 0.7,
-          ease: 'linear',
-        }}
-        style={{ filter: 'drop-shadow(0 0 10px rgba(220, 38, 38, 0.5))' }}
-      >
-        <Heart size={20 + Math.random() * 20} fill="currentColor" />
-      </motion.div>
-    ))}
-  </div>
-);
+          delay: i * 0.55,
+          size: 18 + Math.random() * 22,
+        };
+      }),
+    []
+  );
+
+  return (
+    <div className="fixed inset-0 pointer-events-none z-[2] overflow-hidden">
+      {hearts.map((h) => (
+        <motion.div
+          key={h.id}
+          className="absolute text-red-300/45"
+          initial={{ x: `${h.x1}vw`, y: '105vh', scale: h.scale, rotate: h.rotate, opacity: 0.2 }}
+          animate={{ y: '-10vh', rotate: [h.rotate, h.rotate + 18, h.rotate - 10, h.rotate + 6], x: [`${h.x1}vw`, `${h.x2}vw`, `${h.x3}vw`], opacity: [0.2, 0.75, 0.35] }}
+          transition={{ duration: h.duration, repeat: Infinity, delay: h.delay, ease: 'linear' }}
+          style={{ filter: 'drop-shadow(0 0 10px rgba(220, 38, 38, 0.5))' }}
+        >
+          <Heart size={h.size} fill="currentColor" />
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
+const FloatingTreats = () => {
+  const treats = useMemo(
+    () =>
+      Array.from({ length: 14 }).map((_, i) => ({
+        id: i,
+        emoji: ['🎈', '🍫', '🍬', '🍭', '🍬', '🍫', '🎉'][i % 7],
+        x: 6 + Math.random() * 88,
+        y: 6 + Math.random() * 82,
+        duration: 3 + Math.random() * 3,
+        delay: i * 0.2,
+        size: 16 + Math.random() * 14,
+      })),
+    []
+  );
+
+  return (
+    <div className="fixed inset-0 pointer-events-none z-[4] overflow-hidden">
+      {treats.map((t) => (
+        <motion.span
+          key={t.id}
+          className="absolute select-none"
+          style={{ left: `${t.x}%`, top: `${t.y}%`, fontSize: `${t.size}px` }}
+          animate={{ y: [0, -8, 0], rotate: [0, 6, -6, 0], opacity: [0.65, 1, 0.65] }}
+          transition={{ duration: t.duration, delay: t.delay, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          {t.emoji}
+        </motion.span>
+      ))}
+    </div>
+  );
+};
 
 const CelebrationOverlay = ({ active, name }) => {
   if (!active) return null;
@@ -85,8 +125,6 @@ function App() {
   const [config, setConfig] = useState(null);
   const [name, setName] = useState('');
   const [guideText, setGuideText] = useState('Loading...');
-  const [isBrunoBarking, setIsBrunoBarking] = useState(false);
-  const [hasBarkedOnEntry, setHasBarkedOnEntry] = useState(false);
   const [showCakeCelebration, setShowCakeCelebration] = useState(false);
 
   const { start: startMusic, stop: stopMusic, isPlaying } = useBirthdayTune();
@@ -96,22 +134,9 @@ function App() {
       .then((r) => r.json())
       .then((data) => {
         setConfig(data);
-        setGuideText("Woof! I'm Bruno. Welcome to your birthday celebration.");
+        setGuideText("Hi, I'm Bruno. Welcome to your birthday celebration.");
       })
       .catch((err) => console.error('Could not load data.json', err));
-  }, []);
-
-  const doBrunoDoubleBark = useCallback(() => {
-    setIsBrunoBarking(true);
-    playBark();
-    setTimeout(() => {
-      setIsBrunoBarking(false);
-      setTimeout(() => {
-        setIsBrunoBarking(true);
-        playBark();
-        setTimeout(() => setIsBrunoBarking(false), 500);
-      }, 300);
-    }, 500);
   }, []);
 
   useEffect(() => {
@@ -139,11 +164,6 @@ function App() {
     setName(inputName.trim());
     setScreen('greeting');
     startMusic();
-
-    if (!hasBarkedOnEntry) {
-      setHasBarkedOnEntry(true);
-      doBrunoDoubleBark();
-    }
   };
 
   const handleGreetingDone = () => setScreen('wish');
@@ -184,6 +204,7 @@ function App() {
       />
 
       <FloatingHearts />
+      <FloatingTreats />
       <PetalField count={40} />
       <CelebrationOverlay active={showCakeCelebration} name={name} />
 
@@ -264,12 +285,15 @@ function App() {
             <motion.h1
               initial={{ y: 30 }}
               animate={{ y: 0 }}
-              className="text-5xl md:text-8xl font-serif font-bold text-white mb-3"
+              className="text-6xl md:text-8xl font-serif font-bold text-white mb-3"
               style={{ textShadow: '0 0 20px rgba(251,113,133,0.55)' }}
             >
               Happy Birthday!
             </motion.h1>
-            <h2 className="text-3xl md:text-6xl font-serif text-rose-200 font-bold mb-8">{name}</h2>
+            <h2 className="text-4xl md:text-6xl font-serif text-rose-200 font-bold mb-6">{name}</h2>
+            <p className="text-base md:text-xl text-rose-100/90 mb-6 max-w-xl">
+              Balloons up, petals glowing, hearts flowing. This celebration is all yours.
+            </p>
             <p className="text-rose-100/90 text-base md:text-lg">Tap anywhere to continue</p>
           </motion.div>
         )}
@@ -310,7 +334,7 @@ function App() {
             <h2 className="text-2xl md:text-4xl font-serif text-center text-rose-100 mb-4 md:mb-6">
               Blow Candles, Then Cut The Cake
             </h2>
-            <Cake onCut={handleCakeDone} dogBark={playBark} />
+            <Cake onCut={handleCakeDone} />
           </motion.div>
         )}
 
@@ -342,7 +366,7 @@ function App() {
               onClick={handleLetterDone}
               className="mt-6 rounded-full bg-gradient-to-r from-red-700 via-rose-600 to-red-700 px-8 py-3 text-white font-bold"
             >
-              See Your Bouquet
+              One More Gift
             </button>
           </motion.div>
         )}
@@ -370,7 +394,7 @@ function App() {
         )}
       </AnimatePresence>
 
-      <Guide text={guideText} show={screen !== 'intro'} isBarking={isBrunoBarking} />
+      <Guide text={guideText} show={screen !== 'intro'} />
 
       <motion.button
         whileHover={{ scale: 1.1 }}

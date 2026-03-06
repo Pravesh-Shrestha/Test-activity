@@ -45,7 +45,7 @@ export function Dog({ show = true, isBarking = false }) {
     <motion.div
       initial={{ y: 100, opacity: 0, scale: 0.5 }}
       animate={{ y: 0, opacity: 1, scale: 1 }}
-      className="relative z-50 w-20 md:w-36"
+      className="relative z-50 w-20 md:w-48"
       style={{ filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.15))' }}
     >
       <motion.img
