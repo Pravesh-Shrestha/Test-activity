@@ -2,6 +2,7 @@
   "name": "birthday-activity-react",
   "private": true,
   "version": "1.0.0",
+  "homepage": "https://Pravesh-Shrestha.github.io/Test-activity",
   "type": "module",
   "scripts": {
     "dev": "vite",
