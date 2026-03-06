@@ -61,7 +61,6 @@ const FrostingDrip = ({ left, height, color = 'white' }) => (
 export function Cake({ onCut }) {
   const [candles, setCandles] = useState([true, true, true, true, true]);
   const [allBlown, setAllBlown] = useState(false);
-  const [isCutting, setIsCutting] = useState(false);
   const [showKnife, setShowKnife] = useState(false);
   const [showCutLine, setShowCutLine] = useState(false);
   const streamRef = useRef(null);
@@ -134,19 +133,24 @@ export function Cake({ onCut }) {
     });
   };
 
-  const handleCutCake = () => {
-    if (isCutting) return;
+  useEffect(() => {
+    if (!allBlown) return;
 
-    setIsCutting(true);
     setShowKnife(true);
-    setTimeout(() => setShowCutLine(true), 520);
+    const cutTimer = setTimeout(() => setShowCutLine(true), 520);
+    const confettiA = setTimeout(() => confetti({ particleCount: 220, spread: 95, origin: { y: 0.55 } }), 100);
+    const confettiB = setTimeout(() => confetti({ particleCount: 140, spread: 80, origin: { x: 0.2, y: 0.5 } }), 320);
+    const confettiC = setTimeout(() => confetti({ particleCount: 140, spread: 80, origin: { x: 0.8, y: 0.5 } }), 430);
+    const nextScreen = setTimeout(() => onCut(), 1800);
 
-    confetti({ particleCount: 220, spread: 95, origin: { y: 0.55 } });
-    setTimeout(() => confetti({ particleCount: 140, spread: 80, origin: { x: 0.2, y: 0.5 } }), 250);
-    setTimeout(() => confetti({ particleCount: 140, spread: 80, origin: { x: 0.8, y: 0.5 } }), 350);
-
-    setTimeout(() => onCut(), 1300);
-  };
+    return () => {
+      clearTimeout(cutTimer);
+      clearTimeout(confettiA);
+      clearTimeout(confettiB);
+      clearTimeout(confettiC);
+      clearTimeout(nextScreen);
+    };
+  }, [allBlown, onCut]);
 
   const candleColors = [
     ['#93c5fd', '#60a5fa'],
@@ -283,23 +287,11 @@ export function Cake({ onCut }) {
               transition={{ duration: 1.2, repeat: Infinity }}
               className='text-sm md:text-base text-rose-200/95'
             >
-              Next surprise appears above after the cut.
+              Beautiful cut animation is playing above.
             </motion.p>
             <motion.p className='text-xl md:text-3xl font-serif text-rose-100 font-bold' animate={{ y: [0, -4, 0] }} transition={{ duration: 2, repeat: Infinity }}>
-              Candles are out. Time to cut the cake!
+              Candles are out. Cake is being sliced!
             </motion.p>
-
-            <motion.button
-              onClick={handleCutCake}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
-              animate={{ x: isCutting ? 0 : [0, -2, 2, -1, 1, 0] }}
-              transition={{ duration: 0.4, repeat: isCutting ? 0 : Infinity, repeatDelay: 1.8 }}
-              disabled={isCutting}
-              className='px-6 py-3 rounded-full bg-gradient-to-r from-red-600 via-rose-500 to-red-700 text-white font-bold shadow-lg disabled:opacity-70'
-            >
-              {isCutting ? 'Cutting...' : 'Cut The Cake'}
-            </motion.button>
           </motion.div>
         )}
       </AnimatePresence>

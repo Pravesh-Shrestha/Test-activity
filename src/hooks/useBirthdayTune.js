@@ -24,22 +24,35 @@ export function useBirthdayTune() {
   const isPlayingRef = useRef(false);
 
   const playNote = (ctx, freq, time, duration) => {
-    const osc = ctx.createOscillator();
+    // Piano-like timbre: layered harmonics + low-pass filtering + quick attack decay.
+    const main = ctx.createOscillator();
+    const harmonic = ctx.createOscillator();
     const gain = ctx.createGain();
-    
-    osc.type = 'triangle'; // Soft, clear tone
-    osc.frequency.value = freq;
-    
-    // Envelope to avoid clicking
-    gain.gain.setValueAtTime(0, time);
-    gain.gain.linearRampToValueAtTime(0.1, time + 0.05); // Attack
-    gain.gain.exponentialRampToValueAtTime(0.001, time + duration - 0.05); // Decay
+    const filter = ctx.createBiquadFilter();
 
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    
-    osc.start(time);
-    osc.stop(time + duration);
+    main.type = 'sine';
+    harmonic.type = 'triangle';
+    main.frequency.value = freq;
+    harmonic.frequency.value = freq * 2;
+
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(2200, time);
+    filter.frequency.exponentialRampToValueAtTime(900, time + duration);
+
+    gain.gain.setValueAtTime(0.0001, time);
+    gain.gain.exponentialRampToValueAtTime(0.16, time + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.03, time + duration * 0.5);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+
+    main.connect(gain);
+    harmonic.connect(gain);
+    gain.connect(filter);
+    filter.connect(ctx.destination);
+
+    main.start(time);
+    harmonic.start(time);
+    main.stop(time + duration);
+    harmonic.stop(time + duration);
   };
 
   const playMelody = () => {

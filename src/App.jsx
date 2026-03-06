@@ -12,7 +12,7 @@ import { cn } from './lib/utils';
 import './index.css';
 
 const BRUNO_IMG = import.meta.env.BASE_URL + 'bruno.png';
-const BUILD_ID = '2026-03-06-ui-refresh-3';
+const BUILD_ID = '2026-03-06-ui-refresh-4';
 
 const FloatingHearts = () => {
   const hearts = useMemo(
@@ -82,6 +82,66 @@ const FloatingTreats = () => {
           {t.emoji}
         </motion.span>
       ))}
+    </div>
+  );
+};
+
+const BorderBalloons = () => {
+  const balloons = useMemo(
+    () =>
+      Array.from({ length: 18 }).map((_, i) => ({
+        id: i,
+        color: ['#fb7185', '#fda4af', '#fecdd3', '#f43f5e'][i % 4],
+        side: i < 8 ? 'top' : i < 13 ? 'left' : 'right',
+        pos: i < 8 ? 8 + i * 11 : 14 + (i % 5) * 16,
+        delay: i * 0.15,
+      })),
+    []
+  );
+
+  return (
+    <div className="fixed inset-0 pointer-events-none z-[6] overflow-hidden">
+      {balloons.map((b) => {
+        const baseClass =
+          b.side === 'top'
+            ? `top-2`
+            : b.side === 'left'
+              ? `left-2`
+              : `right-2`;
+        const style =
+          b.side === 'top'
+            ? { left: `${b.pos}%` }
+            : { top: `${b.pos}%` };
+
+        return (
+          <motion.div
+            key={b.id}
+            className={`absolute ${baseClass}`}
+            style={style}
+            animate={{ y: [0, -5, 0], x: [0, b.side === 'top' ? 0 : b.side === 'left' ? 2 : -2, 0] }}
+            transition={{ duration: 2.8 + (b.id % 3) * 0.6, repeat: Infinity, delay: b.delay }}
+          >
+            <div className="relative">
+              <div
+                className="w-5 h-6 md:w-6 md:h-8 rounded-full border border-white/30"
+                style={{ background: `linear-gradient(145deg, ${b.color}, #be123c)` }}
+              />
+              <div className="w-[1px] h-3 bg-rose-200/60 mx-auto" />
+            </div>
+          </motion.div>
+        );
+      })}
+      <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-2">
+        {Array.from({ length: 12 }).map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{ y: [0, -4, 0], rotate: [0, 5, -5, 0] }}
+            transition={{ duration: 2 + (i % 4) * 0.4, repeat: Infinity, delay: i * 0.12 }}
+            className="w-4 h-6 rounded-full border border-white/25"
+            style={{ background: `linear-gradient(145deg, ${['#fb7185', '#fda4af', '#f43f5e', '#fecdd3'][i % 4]}, #9f1239)` }}
+          />
+        ))}
+      </div>
     </div>
   );
 };
@@ -205,6 +265,7 @@ function App() {
 
       <FloatingHearts />
       <FloatingTreats />
+      <BorderBalloons />
       <PetalField count={40} />
       <CelebrationOverlay active={showCakeCelebration} name={name} />
 
@@ -320,6 +381,8 @@ function App() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                animate={{ boxShadow: ['0 0 0 rgba(0,0,0,0)', '0 0 16px rgba(251,113,133,0.45)', '0 0 0 rgba(0,0,0,0)'] }}
+                transition={{ duration: 2, repeat: Infinity }}
                 onClick={handleWishMade}
                 className="rounded-full bg-gradient-to-r from-red-700 via-rose-600 to-red-700 px-10 py-4 text-white font-bold text-xl"
               >
